@@ -2,17 +2,20 @@ using Architecture.Services.Input;
 using VContainer;
 using VContainer.Unity;
 
-public class RootLifetimeScope : LifetimeScope
+namespace Architecture.Game.DI
 {
-    protected override void Configure(IContainerBuilder builder)
+    public class RootLifetimeScope : LifetimeScope
     {
-        RegisterInput(builder);
-    }
+        protected override void Configure(IContainerBuilder builder)
+        {
+            RegisterInput(builder);
+        }
 
-    private static void RegisterInput(IContainerBuilder builder)
-    {
-        builder
-            .Register<PCInputReader>(Lifetime.Singleton)
-            .AsImplementedInterfaces();
+        private static void RegisterInput(IContainerBuilder builder)
+        {
+            builder
+                .Register<PCInputReader>(Lifetime.Singleton)
+                .AsImplementedInterfaces();
+        }
     }
 }

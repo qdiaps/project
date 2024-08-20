@@ -164,4 +164,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 174a1391a8574235b3d0de5ca8f245d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rootLifetimeScopePrefab: {fileID: 5649815436344714600, guid: d264a17403d96ea4f967dedf24aa64fb, type: 3}
+  _levelConfigs:
+  - {fileID: 11400000, guid: 0fdc8986ce5d9054cbd0ded961cb6894, type: 2}
