@@ -98,7 +98,8 @@ GameObject:
   - component: {fileID: 8007743329566191367}
   - component: {fileID: 7061088865817777460}
   - component: {fileID: 1320566045843480342}
-  - component: {fileID: 6271144821512387501}
+  - component: {fileID: 476755901986117458}
+  - component: {fileID: 2524085395387978520}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -120,7 +121,7 @@ Transform:
   m_Children:
   - {fileID: 1007481105608598478}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &806580947824377300
 MeshFilter:
@@ -222,7 +223,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &6271144821512387501
+--- !u!114 &476755901986117458
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -231,21 +232,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 4765612539251651344}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d90ba6530d9bfda47abb4610956b2f44, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c71a6b4744142d6b0135d629c1ff142, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerCamera: {fileID: 6147493922009159656}
-  _cameraCanMove: 1
-  _mouseSensitivity: 5
-  _maxLookAngle: 50
-  _lockCursor: 1
-  _walkSpeed: 5
-  _maxVelocityChange: 10
-  _sprintSpeed: 9
-  _jumpPower: 5
-  _jumpRayDistance: 0.75
-  _sprintKey: 304
-  _jumpKey: 32
+--- !u!114 &2524085395387978520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4765612539251651344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c207859202489e8c245ae147bd5752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5215488917492929361
 GameObject:
   m_ObjectHideFlags: 0
