@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7500175708777834597
 MonoBehaviour:
@@ -49,3 +49,5 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   _gameSettingsConfig: {fileID: 11400000, guid: 881659d99739df24ca7e90cf7ed22504, type: 2}
+  _playerConfig: {fileID: 11400000, guid: 96b3224b32243d7458ec62bbc96c3843, type: 2}
+  _cameraConfig: {fileID: 11400000, guid: e11d1343ecf6f1d49b55090b2c5b4dfd, type: 2}

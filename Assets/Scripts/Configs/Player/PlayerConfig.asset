@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ecb9b3d12b64a11af3068088ab24140, type: 3}
-  m_Name: GameSettings
+  m_Script: {fileID: 11500000, guid: 38ca6c5dcbb04dcd9c4e111eff5287cf, type: 3}
+  m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  PlayerPrefab: Core/Player
+  WalkSpeed: 5
+  MaxVelocityChange: 10
+  SprintSpeed: 9
+  JumpPower: 5
+  CheckGroundRayDistance: 0.75

@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace Architecture.Services.Input
 {
-    public class PCInputReader : IInputReader, ITickable
+    public class PCInputReader : IInputReader, IFixedTickable
     {
         public event Action<Vector3> OnMove;
         public event Action<Vector3> OnSprintMove;
@@ -13,7 +13,7 @@ namespace Architecture.Services.Input
         private const string AxisHorizontal = "Horizontal";
         private const string AxisVertical = "Vertical";
 
-        public void Tick()
+        public void FixedTick()
         {
             ReadMove();
             ReadJump();
