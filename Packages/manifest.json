@@ -5,6 +5,7 @@
     "com.marijnzwemmer.unity-toolbar-extender": "https://github.com/marijnz/unity-toolbar-extender.git",
     "com.unity.collab-proxy": "2.4.4",
     "com.unity.feature.development": "1.0.2",
+    "com.unity.inputsystem": "1.6.3",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.textmeshpro": "3.0.9",
     "com.unity.timeline": "1.8.2",
