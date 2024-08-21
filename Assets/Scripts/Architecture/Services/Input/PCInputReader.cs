@@ -4,27 +4,35 @@ using VContainer.Unity;
 
 namespace Architecture.Services.Input
 {
-    public class PCInputReader : IInputReader, IFixedTickable
+    public class PCInputReader : IInputReader, IFixedTickable, IStartable, IDisposable
     {
         public event Action<Vector3> OnMove;
         public event Action<Vector3> OnSprintMove;
         public event Action OnJump;
         
-        private const string AxisHorizontal = "Horizontal";
-        private const string AxisVertical = "Vertical";
+        private InputControls _inputControls;
+        private bool _isSprint;
 
-        public void FixedTick()
+        public void Start()
         {
-            ReadMove();
-            ReadJump();
+            _inputControls = new InputControls();
+            _inputControls.Enable();
+            RegisterInputAction();
         }
+
+        public void Dispose() => 
+            _inputControls.Disable();
+
+        public void FixedTick() => 
+            ReadMove();
 
         private void ReadMove()
         {
-            var velocity = new Vector3(UnityEngine.Input.GetAxis(AxisHorizontal), 0, UnityEngine.Input.GetAxis(AxisVertical));
+            var input = _inputControls.Gameplay.Move.ReadValue<Vector2>();
+            var velocity = new Vector3(input.x, 0, input.y);
             if (velocity.x != 0 || velocity.z != 0)
             {
-                if (UnityEngine.Input.GetKey(KeyCode.LeftShift))
+                if (_isSprint)
                 {
                     OnSprintMove?.Invoke(velocity);
                     return;
@@ -34,10 +42,17 @@ namespace Architecture.Services.Input
             }
         }
 
-        private void ReadJump()
+        private void RegisterInputAction()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
-                OnJump?.Invoke();
+            _inputControls.Gameplay.Jump.performed += _ => Jump();
+            _inputControls.Gameplay.SprintMove.started += _ => SetSprintValue(true);
+            _inputControls.Gameplay.SprintMove.canceled += _ => SetSprintValue(false);
         }
+
+        private void Jump() => 
+            OnJump?.Invoke();
+
+        private void SetSprintValue(bool value) =>
+            _isSprint = value;
     }
 }
