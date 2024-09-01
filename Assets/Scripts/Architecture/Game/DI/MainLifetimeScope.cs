@@ -1,4 +1,5 @@
 using Architecture.Factory;
+using Core.Scan;
 using Core.Scan.Particle;
 using VContainer;
 using VContainer.Unity;
@@ -25,6 +26,8 @@ namespace Architecture.Game.DI
         {
             builder
                 .RegisterComponentInHierarchy<ParticleObjectPool>();
+            builder
+                .Register<ScannerModel>(Lifetime.Singleton);
         }
     }
 }
