@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace Architecture.Services.Input
 {
-    public class PCInputReader : IInputReader, IFixedTickable, IStartable, IDisposable
+    public class PCInputReader : IJumpInputReader, IMoveInputReader, IFixedTickable, IStartable, IDisposable
     {
         public event Action<Vector3> OnMove;
         public event Action<Vector3> OnSprintMove;
