@@ -51,3 +51,5 @@ MonoBehaviour:
   _gameSettingsConfig: {fileID: 11400000, guid: 881659d99739df24ca7e90cf7ed22504, type: 2}
   _playerConfig: {fileID: 11400000, guid: 96b3224b32243d7458ec62bbc96c3843, type: 2}
   _cameraConfig: {fileID: 11400000, guid: e11d1343ecf6f1d49b55090b2c5b4dfd, type: 2}
+  _particleConfig: {fileID: 11400000, guid: 778bd394dd7603f47bb6496ff0e82921, type: 2}
+  _scannerConfig: {fileID: 11400000, guid: 4f32ad72c1b24244a875f572855e3c9e, type: 2}

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ecb9b3d12b64a11af3068088ab24140, type: 3}
-  m_Name: GameSettings
+  m_Script: {fileID: 11500000, guid: 671bbb473524415a8573ae664b25615d, type: 3}
+  m_Name: ParticleConfig
   m_EditorClassIdentifier: 
-  PlayerPrefab: Core/Player
-  ParticlePrefab: Core/Particle
+  MaxCountParticle: 1000
+  Lifetime: 15

@@ -4,11 +4,13 @@ using VContainer.Unity;
 
 namespace Architecture.Services.Input
 {
-    public class PCInputReader : IInputReader, IFixedTickable, IStartable, IDisposable
+    public class PCInputReader : IJumpInputReader, IMoveInputReader, IScanInputReader, IFixedTickable, IStartable, 
+        IDisposable
     {
         public event Action<Vector3> OnMove;
         public event Action<Vector3> OnSprintMove;
         public event Action OnJump;
+        public event Action OnScan;
         
         private InputControls _inputControls;
         private bool _isSprint;
@@ -47,6 +49,7 @@ namespace Architecture.Services.Input
             _inputControls.Gameplay.Jump.performed += _ => Jump();
             _inputControls.Gameplay.SprintMove.started += _ => SetSprintValue(true);
             _inputControls.Gameplay.SprintMove.canceled += _ => SetSprintValue(false);
+            _inputControls.Gameplay.Scan.performed += _ => Scan();
         }
 
         private void Jump() => 
@@ -54,5 +57,8 @@ namespace Architecture.Services.Input
 
         private void SetSprintValue(bool value) =>
             _isSprint = value;
+        
+        private void Scan() =>
+            OnScan?.Invoke();
     }
 }

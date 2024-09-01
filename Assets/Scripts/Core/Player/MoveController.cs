@@ -8,7 +8,8 @@ namespace Core.Player
     [RequireComponent(typeof(Rigidbody))]
     public class MoveController : MonoBehaviour
     {
-        private IInputReader _inputReader;
+        private IJumpInputReader _jumpInputReader;
+        private IMoveInputReader _moveInputReader;
         private PlayerConfig _config;
         private Rigidbody _rigidbody;
 
@@ -19,18 +20,21 @@ namespace Core.Player
 
         private void OnDestroy()
         {
-            if (_inputReader != null)
+            if (_moveInputReader != null)
             {
-                _inputReader.OnMove -= Move;
-                _inputReader.OnSprintMove -= SprintMove;
-                _inputReader.OnJump -= Jump;
+                _moveInputReader.OnMove -= Move;
+                _moveInputReader.OnSprintMove -= SprintMove;
             }
+            
+            if (_jumpInputReader != null)
+                _jumpInputReader.OnJump -= Jump;
         }
 
         [Inject]
-        private void Construct(IInputReader inputReader, PlayerConfig config)
+        private void Construct(IJumpInputReader jumpInputReader, IMoveInputReader moveInputReader, PlayerConfig config)
         {
-            _inputReader = inputReader;
+            _jumpInputReader = jumpInputReader;
+            _moveInputReader = moveInputReader;
             _config = config;
             Init();
         }
@@ -42,9 +46,9 @@ namespace Core.Player
         
         private void SettingInput()
         {
-            _inputReader.OnMove += Move;
-            _inputReader.OnSprintMove += SprintMove;
-            _inputReader.OnJump += Jump;
+            _moveInputReader.OnMove += Move;
+            _moveInputReader.OnSprintMove += SprintMove;
+            _jumpInputReader.OnJump += Jump;
         }
 
         private void Move(Vector3 velocity) => 

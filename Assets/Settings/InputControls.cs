@@ -55,6 +55,15 @@ namespace Architecture.Services.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Scan"",
+                    ""type"": ""Button"",
+                    ""id"": ""ff8b52f5-c341-4e6d-9605-3893661dd4e6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -189,6 +198,17 @@ namespace Architecture.Services.Input
                     ""action"": ""SprintMove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""44da7504-2a14-4aee-99bf-9cb6586783dc"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Scan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -223,6 +243,7 @@ namespace Architecture.Services.Input
             m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
             m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
             m_Gameplay_SprintMove = m_Gameplay.FindAction("SprintMove", throwIfNotFound: true);
+            m_Gameplay_Scan = m_Gameplay.FindAction("Scan", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         }
@@ -289,6 +310,7 @@ namespace Architecture.Services.Input
         private readonly InputAction m_Gameplay_Jump;
         private readonly InputAction m_Gameplay_Move;
         private readonly InputAction m_Gameplay_SprintMove;
+        private readonly InputAction m_Gameplay_Scan;
         public struct GameplayActions
         {
             private @InputControls m_Wrapper;
@@ -296,6 +318,7 @@ namespace Architecture.Services.Input
             public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
             public InputAction @Move => m_Wrapper.m_Gameplay_Move;
             public InputAction @SprintMove => m_Wrapper.m_Gameplay_SprintMove;
+            public InputAction @Scan => m_Wrapper.m_Gameplay_Scan;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -314,6 +337,9 @@ namespace Architecture.Services.Input
                 @SprintMove.started += instance.OnSprintMove;
                 @SprintMove.performed += instance.OnSprintMove;
                 @SprintMove.canceled += instance.OnSprintMove;
+                @Scan.started += instance.OnScan;
+                @Scan.performed += instance.OnScan;
+                @Scan.canceled += instance.OnScan;
             }
 
             private void UnregisterCallbacks(IGameplayActions instance)
@@ -327,6 +353,9 @@ namespace Architecture.Services.Input
                 @SprintMove.started -= instance.OnSprintMove;
                 @SprintMove.performed -= instance.OnSprintMove;
                 @SprintMove.canceled -= instance.OnSprintMove;
+                @Scan.started -= instance.OnScan;
+                @Scan.performed -= instance.OnScan;
+                @Scan.canceled -= instance.OnScan;
             }
 
             public void RemoveCallbacks(IGameplayActions instance)
@@ -396,6 +425,7 @@ namespace Architecture.Services.Input
             void OnJump(InputAction.CallbackContext context);
             void OnMove(InputAction.CallbackContext context);
             void OnSprintMove(InputAction.CallbackContext context);
+            void OnScan(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

@@ -7,5 +7,6 @@ namespace Configs.Settings
     {
         [Header("Path")] 
         public string PlayerPrefab;
+        public string ParticlePrefab;
     }
 }
