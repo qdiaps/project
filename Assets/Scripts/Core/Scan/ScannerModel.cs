@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections;
-using Configs.Scanner;
+using Configs;
 using UnityEngine;
 
 namespace Core.Scan
 {
     public class ScannerModel
     {
-        private readonly ScannerConfig _config;
+        private readonly GameConfig _config;
 
         private int _currentAttemptRate;
         private bool _isResetAttempts;
 
-        public ScannerModel(ScannerConfig config)
+        public ScannerModel(GameConfig config)
         {
             _config = config;
-            _currentAttemptRate = _config.AttemptRate;
+            _currentAttemptRate = _config.ScannerConfig.AttemptRate;
         }
 
         public bool UseAttempt()
@@ -31,8 +31,8 @@ namespace Core.Scan
             if (_currentAttemptRate != 0 || _isResetAttempts)
                 yield break;
             _isResetAttempts = true;
-            yield return new WaitForSeconds(_config.AllAttemptResetTime);
-            _currentAttemptRate = _config.AttemptRate;
+            yield return new WaitForSeconds(_config.ScannerConfig.AllAttemptResetTime);
+            _currentAttemptRate = _config.ScannerConfig.AttemptRate;
             _isResetAttempts = false;
             callback?.Invoke();
         }

@@ -1,4 +1,4 @@
-﻿using Configs.Settings;
+﻿using Configs;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -8,16 +8,16 @@ namespace Architecture.Factory
     public class PlayerFactory
     {
         private readonly IObjectResolver _container;
-        private readonly GameSettingsConfig _gameSettingsConfig;
+        private readonly GameConfig _config;
 
-        public PlayerFactory(IObjectResolver container, GameSettingsConfig gameSettingsConfig)
+        public PlayerFactory(IObjectResolver container, GameConfig config)
         {
             _container = container;
-            _gameSettingsConfig = gameSettingsConfig;
+            _config = config;
         }
 
         public GameObject Create(Vector3 position, Quaternion rotate) =>
             _container
-                .Instantiate(Resources.Load<GameObject>(_gameSettingsConfig.PlayerPrefab), position, rotate);
+                .Instantiate(Resources.Load<GameObject>(_config.PathConfig.PlayerPrefab), position, rotate);
     }
 }

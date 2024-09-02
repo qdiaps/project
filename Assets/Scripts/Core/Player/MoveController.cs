@@ -1,5 +1,5 @@
 ﻿using Architecture.Services.Input;
-using Configs.Player;
+using Configs;
 using UnityEngine;
 using VContainer;
 
@@ -10,7 +10,7 @@ namespace Core.Player
     {
         private IJumpInputReader _jumpInputReader;
         private IMoveInputReader _moveInputReader;
-        private PlayerConfig _config;
+        private GameConfig _config;
         private Rigidbody _rigidbody;
 
         private void Awake()
@@ -31,7 +31,7 @@ namespace Core.Player
         }
 
         [Inject]
-        private void Construct(IJumpInputReader jumpInputReader, IMoveInputReader moveInputReader, PlayerConfig config)
+        private void Construct(IJumpInputReader jumpInputReader, IMoveInputReader moveInputReader, GameConfig config)
         {
             _jumpInputReader = jumpInputReader;
             _moveInputReader = moveInputReader;
@@ -52,10 +52,10 @@ namespace Core.Player
         }
 
         private void Move(Vector3 velocity) => 
-            Move(velocity, _config.WalkSpeed);
+            Move(velocity, _config.PlayerConfig.WalkSpeed);
 
         private void SprintMove(Vector3 velocity) => 
-            Move(velocity, _config.SprintSpeed);
+            Move(velocity, _config.PlayerConfig.SprintSpeed);
 
         private void Move(Vector3 velocity, float speed)
         {
@@ -63,8 +63,10 @@ namespace Core.Player
             {
                 velocity = transform.TransformDirection(velocity) * speed;
                 Vector3 velocityChange = velocity - _rigidbody.velocity;
-                velocityChange.x = Mathf.Clamp(velocityChange.x, -_config.MaxVelocityChange, _config.MaxVelocityChange);
-                velocityChange.z = Mathf.Clamp(velocityChange.z, -_config.MaxVelocityChange, _config.MaxVelocityChange);
+                velocityChange.x = Mathf.Clamp(velocityChange.x, -_config.PlayerConfig.MaxVelocityChange, 
+                    _config.PlayerConfig.MaxVelocityChange);
+                velocityChange.z = Mathf.Clamp(velocityChange.z, -_config.PlayerConfig.MaxVelocityChange,
+                    _config.PlayerConfig.MaxVelocityChange);
                 velocityChange.y = 0;
                 _rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
             }
@@ -73,7 +75,7 @@ namespace Core.Player
         private void Jump()
         {
             if (CheckGround())
-                _rigidbody.AddForce(0f, _config.JumpPower, 0f, ForceMode.Impulse);
+                _rigidbody.AddForce(0f, _config.PlayerConfig.JumpPower, 0f, ForceMode.Impulse);
         }
         
         private bool CheckGround()
@@ -81,7 +83,7 @@ namespace Core.Player
             Vector3 origin = new Vector3(transform.position.x, transform.position.y - (transform.localScale.y * .5f), transform.position.z);
             Vector3 direction = transform.TransformDirection(Vector3.down);
         
-            return Physics.Raycast(origin, direction, out RaycastHit hit, _config.CheckGroundRayDistance);
+            return Physics.Raycast(origin, direction, out RaycastHit hit, _config.PlayerConfig.CheckGroundRayDistance);
         }
     }
 }

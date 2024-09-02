@@ -1,5 +1,5 @@
 ﻿using Architecture.Factory;
-using Configs.Level;
+using Configs;
 using UnityEngine;
 using VContainer;
 
@@ -7,14 +7,16 @@ namespace Architecture.Game
 {
     public class MainEntryPoint : MonoBehaviour
     {
-        [SerializeField] private LevelConfig _levelConfig;
+        [SerializeField] private int _indexCurrentScene;
         
         private PlayerFactory _playerFactory;
+        private GameConfig _config;
 
         [Inject]
-        private void Construct(PlayerFactory playerFactory)
+        private void Construct(PlayerFactory playerFactory, GameConfig config)
         {
             _playerFactory = playerFactory;
+            _config = config;
             Init();
         }
 
@@ -24,6 +26,6 @@ namespace Architecture.Game
         }
 
         private void CreatePlayer() => 
-            _playerFactory.Create(_levelConfig.PlayerSpawnPoint.position, Quaternion.identity);
+            _playerFactory.Create(_config.LevelConfigs[_indexCurrentScene].PlayerSpawnPoint.position, Quaternion.identity);
     }
 }

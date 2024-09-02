@@ -1,6 +1,5 @@
 ﻿using System.Collections;
-using Configs.Scanner;
-using Configs.Settings;
+using Configs;
 using NTC.Pool;
 using UnityEngine;
 using VContainer;
@@ -12,29 +11,28 @@ namespace Core.Scan
     {
         [SerializeField] private Transform _castPoint;
         
-        private ScannerConfig _config;
+        private GameConfig _config;
         private ParticleSystem _particle;
 
         [Inject]
-        private void Construct(GameSettingsConfig gameSettingsConfig, ScannerConfig config)
+        private void Construct(GameConfig config)
         {
-            _particle = gameSettingsConfig.ScannerParticle;
             _config = config;
         }
 
         public IEnumerator Scan()
         {
-            for (int i = 0; i < _config.PointsPerScan; i++)
+            for (int i = 0; i < _config.ScannerConfig.PointsPerScan; i++)
             {
-                Vector3 randomPoint = Random.insideUnitSphere * _config.Radius;
+                Vector3 randomPoint = Random.insideUnitSphere * _config.ScannerConfig.Radius;
                 randomPoint += _castPoint.position;
 
                 Vector3 direction = (randomPoint - transform.position).normalized;
-                if (Physics.Raycast(transform.position, direction, out RaycastHit hit, _config.MaxDistance))
+                if (Physics.Raycast(transform.position, direction, out RaycastHit hit, _config.ScannerConfig.MaxDistance))
                 {
-                    NightPool.Spawn(_particle, hit.point, Quaternion.identity)
+                    NightPool.Spawn(_config.PathConfig.ScannerParticle, hit.point, Quaternion.identity)
                         .DespawnOnComplete();
-                    yield return new WaitForSeconds(_config.TimeSpawn);
+                    yield return new WaitForSeconds(_config.ScannerConfig.TimeSpawn);
                 }
             }
         }
