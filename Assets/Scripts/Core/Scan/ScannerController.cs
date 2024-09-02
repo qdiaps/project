@@ -28,12 +28,9 @@ namespace Core.Scan
         private void Scan()
         {
             if (_model.UseAttempt())
-            {
-                _scanner.Scan();
-                StartCoroutine(_model.ResetAttempt());
-            }
+                StartCoroutine(_scanner.Scan());
             else
-                StartCoroutine(_model.ResetAllAttempt());
+                StartCoroutine(_model.ResetAttempts());
         }
     }
 }

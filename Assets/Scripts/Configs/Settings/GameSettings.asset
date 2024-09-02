@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   PlayerPrefab: Core/Player
-  ParticlePrefab: Core/Particle
+  ScannerParticle: {fileID: 4082807160917226789, guid: 88ba1009a39d3094d81a227b1ea08767, type: 3}

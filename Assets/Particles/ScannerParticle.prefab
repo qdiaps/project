@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 7861876960437783920}
   - component: {fileID: 4082807160917226789}
   - component: {fileID: 1224851587673216899}
-  - component: {fileID: 1731388643606950792}
   m_Layer: 0
-  m_Name: Particle
+  m_Name: ScannerParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,16 +41,16 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6689934469704807292}
   serializedVersion: 8
-  lengthInSec: 100
+  lengthInSec: 5
   simulationSpeed: 1
   stopAction: 1
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -4829,15 +4828,3 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &1731388643606950792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6689934469704807292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9b069d49f574f42b5e2e2e73d5d38c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -12,7 +12,6 @@ namespace Configs.Scanner
         public float TimeSpawn;
         [Header("Model params")]
         public int AttemptRate;
-        public float AttemptResetTime;
         public float AllAttemptResetTime;
     }
 }

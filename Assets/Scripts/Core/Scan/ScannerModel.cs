@@ -10,7 +10,7 @@ namespace Core.Scan
         private readonly ScannerConfig _config;
 
         private int _currentAttemptRate;
-        private bool _isResetAllAttempt;
+        private bool _isResetAttempts;
 
         public ScannerModel(ScannerConfig config)
         {
@@ -26,26 +26,14 @@ namespace Core.Scan
             return true; 
         }
 
-        public IEnumerator ResetAttempt(Action callback = null)
+        public IEnumerator ResetAttempts(Action callback = null)
         {
-            if (_currentAttemptRate >= _config.AttemptRate)
+            if (_currentAttemptRate != 0 || _isResetAttempts)
                 yield break;
-            yield return new WaitForSeconds(_config.AttemptResetTime);
-            if (_isResetAllAttempt == false)
-            {
-                _currentAttemptRate++;
-                callback?.Invoke();
-            }
-        }
-
-        public IEnumerator ResetAllAttempt(Action callback = null)
-        {
-            if (_currentAttemptRate != 0 || _isResetAllAttempt)
-                yield break;
-            _isResetAllAttempt = true;
+            _isResetAttempts = true;
             yield return new WaitForSeconds(_config.AllAttemptResetTime);
             _currentAttemptRate = _config.AttemptRate;
-            _isResetAllAttempt = false;
+            _isResetAttempts = false;
             callback?.Invoke();
         }
     }

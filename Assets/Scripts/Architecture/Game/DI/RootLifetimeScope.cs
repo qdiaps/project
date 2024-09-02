@@ -14,7 +14,6 @@ namespace Architecture.Game.DI
         [SerializeField] private GameSettingsConfig _gameSettingsConfig;
         [SerializeField] private PlayerConfig _playerConfig;
         [SerializeField] private CameraConfig _cameraConfig;
-        [SerializeField] private ParticleConfig _particleConfig;
         [SerializeField] private ScannerConfig _scannerConfig;
         
         protected override void Configure(IContainerBuilder builder)
@@ -38,8 +37,6 @@ namespace Architecture.Game.DI
                 .RegisterInstance(_playerConfig);
             builder
                 .RegisterInstance(_cameraConfig);
-            builder
-                .RegisterInstance(_particleConfig);
             builder
                 .RegisterInstance(_scannerConfig);
         }

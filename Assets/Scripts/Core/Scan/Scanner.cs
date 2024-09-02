@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using Architecture.Services.Input;
 using Configs.Scanner;
-using Core.Scan.Particle;
+using Configs.Settings;
+using NTC.Pool;
 using UnityEngine;
 using VContainer;
 using Random = UnityEngine.Random;
@@ -13,20 +12,18 @@ namespace Core.Scan
     {
         [SerializeField] private Transform _castPoint;
         
-        private ParticleObjectPool _pool;
         private ScannerConfig _config;
-        private List<Vector3> _positionsList = new();
+        private ParticleSystem _particle;
 
         [Inject]
-        private void Construct(ParticleObjectPool pool, ScannerConfig config)
+        private void Construct(GameSettingsConfig gameSettingsConfig, ScannerConfig config)
         {
-            _pool = pool;
+            _particle = gameSettingsConfig.ScannerParticle;
             _config = config;
         }
 
-        public void Scan()
+        public IEnumerator Scan()
         {
-            _positionsList.Clear();
             for (int i = 0; i < _config.PointsPerScan; i++)
             {
                 Vector3 randomPoint = Random.insideUnitSphere * _config.Radius;
@@ -34,18 +31,11 @@ namespace Core.Scan
 
                 Vector3 direction = (randomPoint - transform.position).normalized;
                 if (Physics.Raycast(transform.position, direction, out RaycastHit hit, _config.MaxDistance))
-                    _positionsList.Add(hit.point);
-            }
-
-            StartCoroutine(ApplyPositions());
-        }
-
-        private IEnumerator ApplyPositions()
-        {
-            foreach (Vector3 point in _positionsList)
-            {
-                _pool.EnableParticle(point);
-                yield return new WaitForSeconds(_config.TimeSpawn);
+                {
+                    NightPool.Spawn(_particle, hit.point, Quaternion.identity)
+                        .DespawnOnComplete();
+                    yield return new WaitForSeconds(_config.TimeSpawn);
+                }
             }
         }
     }

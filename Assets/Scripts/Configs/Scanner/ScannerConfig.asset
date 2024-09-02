@@ -15,7 +15,8 @@ MonoBehaviour:
   PointsPerScan: 100
   Radius: 5
   MaxDistance: 50
-  TimeSpawn: 0.005
+  TimeSpawn: 0.01
+  ParticleLifetime: 5
   AttemptRate: 10
   AttemptResetTime: 0.1
   AllAttemptResetTime: 0.1
