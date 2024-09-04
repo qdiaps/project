@@ -7,12 +7,18 @@ using Random = UnityEngine.Random;
 
 namespace Core.Scan
 {
+    [RequireComponent(typeof(LineRenderer))]
     public class Scanner : MonoBehaviour
     {
         [SerializeField] private Transform _castPoint;
+        [SerializeField] private Transform _player;
         
         private GameConfig _config;
         private ParticleSystem _particle;
+        private LineRenderer _line;
+
+        private void Awake() => 
+            _line = GetComponent<LineRenderer>();
 
         [Inject]
         private void Construct(GameConfig config)
@@ -22,6 +28,7 @@ namespace Core.Scan
 
         public IEnumerator Scan()
         {
+            _line.enabled = true;
             for (int i = 0; i < _config.ScannerConfig.PointsPerScan; i++)
             {
                 Vector3 randomPoint = Random.insideUnitSphere * _config.ScannerConfig.Radius;
@@ -32,9 +39,11 @@ namespace Core.Scan
                 {
                     NightPool.Spawn(_config.PathConfig.ScannerParticle, hit.point, Quaternion.identity)
                         .DespawnOnComplete();
+                    _line.SetPositions(new []{ _player.position, hit.point });
                     yield return new WaitForSeconds(_config.ScannerConfig.TimeSpawn);
                 }
             }
+            _line.enabled = false;
         }
     }
 }
