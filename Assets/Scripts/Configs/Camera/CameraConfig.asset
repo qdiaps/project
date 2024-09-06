@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: CameraConfig
   m_EditorClassIdentifier: 
   CameraCanMove: 1
-  MouseSensitivity: 5
-  MaxLookAngle: 70
+  MouseSensitivity: 7
+  MaxLookAngle: 90
