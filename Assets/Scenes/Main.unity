@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4443b0854f1c447c961774946f97b5bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelConfig: {fileID: 11400000, guid: 0fdc8986ce5d9054cbd0ded961cb6894, type: 2}
+  _indexCurrentScene: 0
 --- !u!4 &1884203099
 Transform:
   m_ObjectHideFlags: 0
