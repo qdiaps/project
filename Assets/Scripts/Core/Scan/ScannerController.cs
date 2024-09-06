@@ -8,7 +8,6 @@ namespace Core.Scan
     public class ScannerController : MonoBehaviour
     {
         private Scanner _scanner;
-        private ScannerModel _model;
         private IScanInputReader _inputReader;
 
         private void Awake() => 
@@ -18,19 +17,13 @@ namespace Core.Scan
             _inputReader.OnScan -= Scan;
 
         [Inject]
-        private void Construct(ScannerModel model, IScanInputReader inputReader)
+        private void Construct(IScanInputReader inputReader)
         {
-            _model = model;
             _inputReader = inputReader;
             _inputReader.OnScan += Scan;
         }
 
-        private void Scan()
-        {
-            if (_model.UseAttempt())
-                StartCoroutine(_scanner.Scan());
-            else
-                StartCoroutine(_model.ResetAttempts());
-        }
+        private void Scan() => 
+            StartCoroutine(_scanner.Scan());
     }
 }

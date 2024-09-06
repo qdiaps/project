@@ -12,11 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cf221ba87e34f15b2eaa169aec387c1, type: 3}
   m_Name: ScannerConfig
   m_EditorClassIdentifier: 
-  PointsPerScan: 100
-  Radius: 5
-  MaxDistance: 50
-  TimeSpawn: 0.01
-  ParticleLifetime: 5
-  AttemptRate: 10
-  AttemptResetTime: 0.1
-  AllAttemptResetTime: 0.1
+  PointsPerScan: 70
+  Radius: 4
+  MaxDistance: 25
+  TimeSpawn: 0.005
