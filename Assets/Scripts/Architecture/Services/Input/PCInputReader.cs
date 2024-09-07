@@ -25,8 +25,11 @@ namespace Architecture.Services.Input
         public void Dispose() => 
             _inputControls.Disable();
 
-        public void FixedTick() => 
+        public void FixedTick()
+        {
             ReadMove();
+            ReadJump();
+        }
 
         private void ReadMove()
         {
@@ -44,16 +47,18 @@ namespace Architecture.Services.Input
             }
         }
 
+        private void ReadJump()
+        {
+            if (_inputControls.Gameplay.Jump.IsPressed())
+                OnJump?.Invoke();
+        }
+
         private void RegisterInputAction()
         {
-            _inputControls.Gameplay.Jump.performed += _ => Jump();
             _inputControls.Gameplay.SprintMove.started += _ => SetSprintValue(true);
             _inputControls.Gameplay.SprintMove.canceled += _ => SetSprintValue(false);
             _inputControls.Gameplay.Scan.performed += _ => Scan();
         }
-
-        private void Jump() => 
-            OnJump?.Invoke();
 
         private void SetSprintValue(bool value) =>
             _isSprint = value;

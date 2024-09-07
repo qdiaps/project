@@ -1,4 +1,5 @@
-﻿using Architecture.Services.Input;
+﻿using System.Collections;
+using Architecture.Services.Input;
 using Configs;
 using UnityEngine;
 using VContainer;
@@ -12,6 +13,7 @@ namespace Core.Player
         private IMoveInputReader _moveInputReader;
         private GameConfig _config;
         private Rigidbody _rigidbody;
+        private bool _isJumping;
 
         private void Awake()
         {
@@ -59,23 +61,34 @@ namespace Core.Player
 
         private void Move(Vector3 velocity, float speed)
         {
-            if (CheckGround())
-            {
-                velocity = transform.TransformDirection(velocity) * speed;
-                Vector3 velocityChange = velocity - _rigidbody.velocity;
-                velocityChange.x = Mathf.Clamp(velocityChange.x, -_config.PlayerConfig.MaxVelocityChange, 
-                    _config.PlayerConfig.MaxVelocityChange);
-                velocityChange.z = Mathf.Clamp(velocityChange.z, -_config.PlayerConfig.MaxVelocityChange,
-                    _config.PlayerConfig.MaxVelocityChange);
-                velocityChange.y = 0;
-                _rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
-            }
+            velocity = transform.TransformDirection(velocity) * speed;
+            Vector3 velocityChange = velocity - _rigidbody.velocity;
+            velocityChange.x = Mathf.Clamp(velocityChange.x, -_config.PlayerConfig.MaxVelocityChange, 
+                _config.PlayerConfig.MaxVelocityChange);
+            velocityChange.z = Mathf.Clamp(velocityChange.z, -_config.PlayerConfig.MaxVelocityChange,
+                _config.PlayerConfig.MaxVelocityChange);
+            velocityChange.y = 0;
+            _rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
         }
 
         private void Jump()
         {
-            if (CheckGround())
-                _rigidbody.AddForce(0f, _config.PlayerConfig.JumpPower, 0f, ForceMode.Impulse);
+            if (_isJumping == false)
+            {
+                if (CheckGround())
+                {
+                    _isJumping = true;
+                    _rigidbody.velocity = Vector3.zero;
+                    _rigidbody.AddForce(0f, _config.PlayerConfig.JumpPower, 0f, ForceMode.Impulse);
+                    StartCoroutine(ResetJump());
+                }
+            }
+        }
+
+        private IEnumerator ResetJump()
+        {
+            yield return new WaitForSeconds(_config.PlayerConfig.JumpCooldown);
+            _isJumping = false;
         }
         
         private bool CheckGround()
