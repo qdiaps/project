@@ -11,6 +11,7 @@ namespace Configs.Player
         public float SprintSpeed = 9f;
         [Header("Jump")]
         public float JumpPower = 5f;
+        public float JumpCooldown = 0.3f;
         [Header("Other")]
         public float CheckGroundRayDistance = .75f;
     }

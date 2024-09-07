@@ -16,4 +16,4 @@ MonoBehaviour:
   MaxVelocityChange: 10
   SprintSpeed: 9
   JumpPower: 5
-  CheckGroundRayDistance: 0.75
+  CheckGroundRayDistance: 0.6
