@@ -59,17 +59,14 @@ namespace Core.Player
 
         private void Move(Vector3 velocity, float speed)
         {
-            if (CheckGround())
-            {
-                velocity = transform.TransformDirection(velocity) * speed;
-                Vector3 velocityChange = velocity - _rigidbody.velocity;
-                velocityChange.x = Mathf.Clamp(velocityChange.x, -_config.PlayerConfig.MaxVelocityChange, 
-                    _config.PlayerConfig.MaxVelocityChange);
-                velocityChange.z = Mathf.Clamp(velocityChange.z, -_config.PlayerConfig.MaxVelocityChange,
-                    _config.PlayerConfig.MaxVelocityChange);
-                velocityChange.y = 0;
-                _rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
-            }
+            velocity = transform.TransformDirection(velocity) * speed;
+            Vector3 velocityChange = velocity - _rigidbody.velocity;
+            velocityChange.x = Mathf.Clamp(velocityChange.x, -_config.PlayerConfig.MaxVelocityChange, 
+                _config.PlayerConfig.MaxVelocityChange);
+            velocityChange.z = Mathf.Clamp(velocityChange.z, -_config.PlayerConfig.MaxVelocityChange,
+                _config.PlayerConfig.MaxVelocityChange);
+            velocityChange.y = 0;
+            _rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
         }
 
         private void Jump()
