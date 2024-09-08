@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace Architecture.Services.Input
 {
-    public class PCInputReader : IJumpInputReader, IMoveInputReader, IScanInputReader, IPauseReader,
+    public class PCInputReader : IJumpInputReader, IMoveInputReader, IScanInputReader, IPauseReader, IInputControlChanger,
         IFixedTickable, IStartable, IDisposable
     {
         public event Action<Vector3> OnMove;
@@ -31,6 +31,21 @@ namespace Architecture.Services.Input
         {
             ReadMove();
             ReadJump();
+        }
+
+        public void ChangeInputControl(InputControlType type)
+        {
+            switch (type)
+            {
+                case InputControlType.Gameplay:
+                    _inputControls.UI.Disable();
+                    _inputControls.Gameplay.Enable();
+                    break;
+                case InputControlType.UI:
+                    _inputControls.Gameplay.Disable();
+                    _inputControls.UI.Enable();
+                    break;
+            }
         }
 
         private void ReadMove()
@@ -82,15 +97,13 @@ namespace Architecture.Services.Input
 
         private void PauseEnter()
         {
-            _inputControls.Gameplay.Disable();
-            _inputControls.UI.Enable();
+            ChangeInputControl(InputControlType.UI);
             OnPauseEnter?.Invoke();
         }
 
         private void PauseExit()
         {
-            _inputControls.UI.Disable();
-            _inputControls.Gameplay.Enable();
+            ChangeInputControl(InputControlType.Gameplay);
             OnPauseExit?.Invoke();
         }
     }

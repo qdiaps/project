@@ -17,6 +17,9 @@ namespace Architecture.Model
             InitFsm();
         }
 
+        public Type GetState() =>
+            _fsm.GetState();
+        
         public bool SetState(Type typeState)
         {
             if (_fsm.GetState() == typeState)

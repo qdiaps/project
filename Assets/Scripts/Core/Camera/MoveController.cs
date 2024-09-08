@@ -1,4 +1,6 @@
-﻿using Configs;
+﻿using Architecture.FiniteStateMachine.States.Game;
+using Architecture.Model;
+using Configs;
 using UnityEngine;
 using VContainer;
 
@@ -11,26 +13,25 @@ namespace Core.Camera
         
         private UnityEngine.Camera _camera;
         private GameConfig _config;
+        private GameStateModel _gameState;
         private float _pitch;
 
-        private void Awake()
-        {
+        private void Awake() => 
             _camera = GetComponentInChildren<UnityEngine.Camera>();
-            Cursor.lockState = CursorLockMode.Locked;
-        }
 
         private void Update()
         {
-            if (_config == null)
+            if (_config == null || _gameState == null)
                 return;
-            if (_config.CameraConfig.CameraCanMove)
+            if (_config.CameraConfig.CameraCanMove && _gameState.GetState() == typeof(Play))
                 Move();
         }
 
         [Inject]
-        private void Construct(GameConfig config)
+        private void Construct(GameConfig config, GameStateModel gameState)
         {
             _config = config;
+            _gameState = gameState;
         }
 
         private void Move()

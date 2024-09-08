@@ -10,12 +10,15 @@ namespace Architecture.Controller
         private readonly GameStateModel _model;
         private readonly GameStateView _view;
         private readonly IPauseReader _pauseReader;
+        private readonly IInputControlChanger _controlChanger;
 
-        public GameStateController(GameStateModel model, GameStateView view, IPauseReader pauseReader)
+        public GameStateController(GameStateModel model, GameStateView view, IPauseReader pauseReader, 
+            IInputControlChanger controlChanger)
         {
             _model = model;
             _view = view;
             _pauseReader = pauseReader;
+            _controlChanger = controlChanger;
             Init();
         }
 
@@ -23,6 +26,8 @@ namespace Architecture.Controller
         {
             if (_model.SetState(typeof(Pause)))
             {
+                _controlChanger.ChangeInputControl(InputControlType.UI);
+                _view.ShowPauseMenu();
             }
         }
 
@@ -30,6 +35,8 @@ namespace Architecture.Controller
         {
             if (_model.SetState(typeof(Play)))
             {
+                _controlChanger.ChangeInputControl(InputControlType.Gameplay);
+                _view.HidePauseMenu();
             }
         }
 

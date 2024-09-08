@@ -6,12 +6,14 @@ namespace Architecture.FiniteStateMachine.States.Game
     {
         public override void Enter()
         {
-            Debug.Log("Play Enter");
+            Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1;
         }
 
         public override void Exit()
         {
-            Debug.Log("Play Exit");
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0;
         }
     }
 }
