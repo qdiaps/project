@@ -4,13 +4,15 @@ using VContainer.Unity;
 
 namespace Architecture.Services.Input
 {
-    public class PCInputReader : IJumpInputReader, IMoveInputReader, IScanInputReader, IFixedTickable, IStartable, 
-        IDisposable
+    public class PCInputReader : IJumpInputReader, IMoveInputReader, IScanInputReader, IPauseReader, IInputControlChanger,
+        IFixedTickable, IStartable, IDisposable
     {
         public event Action<Vector3> OnMove;
         public event Action<Vector3> OnSprintMove;
         public event Action OnJump;
         public event Action OnScan;
+        public event Action OnPauseEnter;
+        public event Action OnPauseExit;
         
         private InputControls _inputControls;
         private bool _isSprint;
@@ -18,7 +20,7 @@ namespace Architecture.Services.Input
         public void Start()
         {
             _inputControls = new InputControls();
-            _inputControls.Enable();
+            _inputControls.Gameplay.Enable();
             RegisterInputAction();
         }
 
@@ -29,6 +31,21 @@ namespace Architecture.Services.Input
         {
             ReadMove();
             ReadJump();
+        }
+
+        public void ChangeInputControl(InputControlType type)
+        {
+            switch (type)
+            {
+                case InputControlType.Gameplay:
+                    _inputControls.UI.Disable();
+                    _inputControls.Gameplay.Enable();
+                    break;
+                case InputControlType.UI:
+                    _inputControls.Gameplay.Disable();
+                    _inputControls.UI.Enable();
+                    break;
+            }
         }
 
         private void ReadMove()
@@ -55,9 +72,21 @@ namespace Architecture.Services.Input
 
         private void RegisterInputAction()
         {
+            RegisterGameplay();
+            RegisterUI();
+        }
+
+        private void RegisterGameplay()
+        {
             _inputControls.Gameplay.SprintMove.started += _ => SetSprintValue(true);
             _inputControls.Gameplay.SprintMove.canceled += _ => SetSprintValue(false);
             _inputControls.Gameplay.Scan.performed += _ => Scan();
+            _inputControls.Gameplay.Pause.performed += _ => PauseEnter();
+        }
+
+        private void RegisterUI()
+        {
+            _inputControls.UI.Play.performed += _ => PauseExit();
         }
 
         private void SetSprintValue(bool value) =>
@@ -65,5 +94,17 @@ namespace Architecture.Services.Input
         
         private void Scan() =>
             OnScan?.Invoke();
+
+        private void PauseEnter()
+        {
+            ChangeInputControl(InputControlType.UI);
+            OnPauseEnter?.Invoke();
+        }
+
+        private void PauseExit()
+        {
+            ChangeInputControl(InputControlType.Gameplay);
+            OnPauseExit?.Invoke();
+        }
     }
 }

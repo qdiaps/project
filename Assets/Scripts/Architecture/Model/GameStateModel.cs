@@ -1,4 +1,5 @@
-﻿using Architecture.FiniteStateMachine;
+﻿using System;
+using Architecture.FiniteStateMachine;
 using Architecture.FiniteStateMachine.States.Game;
 using Core;
 
@@ -14,6 +15,17 @@ namespace Architecture.Model
             _data = data;
             _fsm = fsm;
             InitFsm();
+        }
+
+        public Type GetState() =>
+            _fsm.GetState();
+        
+        public bool SetState(Type typeState)
+        {
+            if (_fsm.GetState() == typeState)
+                return false;
+            _fsm.SetState(typeState);
+            return true;
         }
 
         private void InitFsm()

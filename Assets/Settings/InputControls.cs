@@ -64,6 +64,15 @@ namespace Architecture.Services.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""28ab1ef2-043c-4df1-8f2e-fd01507296b3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -209,14 +218,69 @@ namespace Architecture.Services.Input
                     ""action"": ""Scan"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""04d6d228-b4a3-4040-a5ed-37e2547380e3"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""17b13f79-06ff-482c-b16d-c7f8bc9da5f0"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
         {
             ""name"": ""UI"",
             ""id"": ""c13791c9-685b-41c4-8ebd-41494093b6bd"",
-            ""actions"": [],
-            ""bindings"": []
+            ""actions"": [
+                {
+                    ""name"": ""Play"",
+                    ""type"": ""Button"",
+                    ""id"": ""8dd6168a-8365-4972-86ae-4d284a389612"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""6c333c9b-4dcc-40b1-82da-06dcfa19db8b"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Play"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a4925b5-0696-4772-8bf7-b614d1227ce0"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Play"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -244,8 +308,10 @@ namespace Architecture.Services.Input
             m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
             m_Gameplay_SprintMove = m_Gameplay.FindAction("SprintMove", throwIfNotFound: true);
             m_Gameplay_Scan = m_Gameplay.FindAction("Scan", throwIfNotFound: true);
+            m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+            m_UI_Play = m_UI.FindAction("Play", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -311,6 +377,7 @@ namespace Architecture.Services.Input
         private readonly InputAction m_Gameplay_Move;
         private readonly InputAction m_Gameplay_SprintMove;
         private readonly InputAction m_Gameplay_Scan;
+        private readonly InputAction m_Gameplay_Pause;
         public struct GameplayActions
         {
             private @InputControls m_Wrapper;
@@ -319,6 +386,7 @@ namespace Architecture.Services.Input
             public InputAction @Move => m_Wrapper.m_Gameplay_Move;
             public InputAction @SprintMove => m_Wrapper.m_Gameplay_SprintMove;
             public InputAction @Scan => m_Wrapper.m_Gameplay_Scan;
+            public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -340,6 +408,9 @@ namespace Architecture.Services.Input
                 @Scan.started += instance.OnScan;
                 @Scan.performed += instance.OnScan;
                 @Scan.canceled += instance.OnScan;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
 
             private void UnregisterCallbacks(IGameplayActions instance)
@@ -356,6 +427,9 @@ namespace Architecture.Services.Input
                 @Scan.started -= instance.OnScan;
                 @Scan.performed -= instance.OnScan;
                 @Scan.canceled -= instance.OnScan;
+                @Pause.started -= instance.OnPause;
+                @Pause.performed -= instance.OnPause;
+                @Pause.canceled -= instance.OnPause;
             }
 
             public void RemoveCallbacks(IGameplayActions instance)
@@ -377,10 +451,12 @@ namespace Architecture.Services.Input
         // UI
         private readonly InputActionMap m_UI;
         private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+        private readonly InputAction m_UI_Play;
         public struct UIActions
         {
             private @InputControls m_Wrapper;
             public UIActions(@InputControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Play => m_Wrapper.m_UI_Play;
             public InputActionMap Get() { return m_Wrapper.m_UI; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -390,10 +466,16 @@ namespace Architecture.Services.Input
             {
                 if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+                @Play.started += instance.OnPlay;
+                @Play.performed += instance.OnPlay;
+                @Play.canceled += instance.OnPlay;
             }
 
             private void UnregisterCallbacks(IUIActions instance)
             {
+                @Play.started -= instance.OnPlay;
+                @Play.performed -= instance.OnPlay;
+                @Play.canceled -= instance.OnPlay;
             }
 
             public void RemoveCallbacks(IUIActions instance)
@@ -426,9 +508,11 @@ namespace Architecture.Services.Input
             void OnMove(InputAction.CallbackContext context);
             void OnSprintMove(InputAction.CallbackContext context);
             void OnScan(InputAction.CallbackContext context);
+            void OnPause(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
+            void OnPlay(InputAction.CallbackContext context);
         }
     }
 }
