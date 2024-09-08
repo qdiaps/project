@@ -1,3 +1,4 @@
+using Architecture.Controller;
 using Architecture.Factory;
 using Architecture.FiniteStateMachine;
 using Architecture.Model;
@@ -12,6 +13,7 @@ namespace Architecture.Game.DI
         {
             RegisterFactories(builder);
             RegisterModels(builder);
+            RegisterControllers(builder);
             RegisterFsm(builder);
         }
 
@@ -25,6 +27,12 @@ namespace Architecture.Game.DI
         {
             builder
                 .Register<GameStateModel>(Lifetime.Singleton);
+        }
+
+        private static void RegisterControllers(IContainerBuilder builder)
+        {
+            builder
+                .Register<GameStateController>(Lifetime.Singleton);
         }
 
         private static void RegisterFsm(IContainerBuilder builder)
