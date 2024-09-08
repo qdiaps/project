@@ -7,8 +7,9 @@ namespace Architecture.FiniteStateMachine
 {
     public class Fsm
     {
+        private readonly Dictionary<Type, State> _states = new();
+        
         private State _currentState;
-        private Dictionary<Type, State> _states;
 
         public void AddState(State state)
         {
@@ -25,7 +26,7 @@ namespace Architecture.FiniteStateMachine
 
         public void SetState(Type typeState)
         {
-            if (_currentState.GetType() == typeState)
+            if (_currentState?.GetType() == typeState)
             {
                 Debug.LogWarning("typeState already set");
                 return;
