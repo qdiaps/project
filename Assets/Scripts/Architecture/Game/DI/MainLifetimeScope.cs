@@ -2,6 +2,7 @@ using Architecture.Controller;
 using Architecture.Factory;
 using Architecture.FiniteStateMachine;
 using Architecture.Model;
+using Architecture.View;
 using VContainer;
 using VContainer.Unity;
 
@@ -14,6 +15,7 @@ namespace Architecture.Game.DI
             RegisterFactories(builder);
             RegisterModels(builder);
             RegisterControllers(builder);
+            RegisterViews(builder);
             RegisterFsm(builder);
         }
 
@@ -33,6 +35,12 @@ namespace Architecture.Game.DI
         {
             builder
                 .Register<GameStateController>(Lifetime.Singleton);
+        }
+
+        private static void RegisterViews(IContainerBuilder builder)
+        {
+            builder
+                .RegisterComponentInHierarchy<GameStateView>();
         }
 
         private static void RegisterFsm(IContainerBuilder builder)
