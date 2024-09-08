@@ -1,5 +1,7 @@
 using Architecture.Services.Input;
+using Architecture.Services.Storage;
 using Configs;
+using Core;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -12,21 +14,31 @@ namespace Architecture.Game.DI
         
         protected override void Configure(IContainerBuilder builder)
         {
-            RegisterInput(builder);
             RegisterConfigs(builder);
-        }
-
-        private static void RegisterInput(IContainerBuilder builder)
-        {
-            builder
-                .Register<PCInputReader>(Lifetime.Singleton)
-                .AsImplementedInterfaces();
+            RegisterServices(builder);
+            RegisterData(builder);
         }
 
         private void RegisterConfigs(IContainerBuilder builder)
         {
             builder
                 .RegisterInstance(_gameConfig);
+        }
+
+        private static void RegisterServices(IContainerBuilder builder)
+        {
+            builder
+                .Register<PCInputReader>(Lifetime.Singleton)
+                .AsImplementedInterfaces();
+            builder
+                .Register<StubStorageService>(Lifetime.Transient)
+                .As<IStorageService>();
+        }
+
+        private static void RegisterData(IContainerBuilder builder)
+        {
+            builder
+                .Register<GameData>(Lifetime.Singleton);
         }
     }
 }
