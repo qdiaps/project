@@ -1,5 +1,6 @@
 using Architecture.Services.Input;
 using Architecture.Services.Storage;
+using Architecture.Services.Stream;
 using Configs;
 using Core;
 using UnityEngine;
@@ -31,8 +32,11 @@ namespace Architecture.Game.DI
                 .Register<PCInputReader>(Lifetime.Singleton)
                 .AsImplementedInterfaces();
             builder
-                .Register<StubStorageService>(Lifetime.Transient)
+                .Register<JsonStorageService>(Lifetime.Transient)
                 .As<IStorageService>();
+            builder
+                .Register<FileStreamService>(Lifetime.Transient)
+                .As<IStreamService>();
         }
 
         private static void RegisterData(IContainerBuilder builder)

@@ -2,8 +2,8 @@
 {
     public interface IStorageService
     {
-        void Save(object data);
+        void Serialize(object data);
         
-        T Load<T>();
+        T Deserialize<T>();
     }
 }
