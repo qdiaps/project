@@ -1,7 +1,7 @@
 ﻿using Architecture.FiniteStateMachine;
 using Architecture.FiniteStateMachine.States.Game;
 
-namespace Architecture.Model
+namespace Architecture.Model.State
 {
     public class StateModel : IModel<StateData>
     {

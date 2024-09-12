@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Architecture.Model
+namespace Architecture.Model.State
 {
     public class StateData
     {

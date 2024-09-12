@@ -2,6 +2,7 @@ using Architecture.Controller;
 using Architecture.Factory;
 using Architecture.FiniteStateMachine;
 using Architecture.Model;
+using Architecture.Model.State;
 using Architecture.View;
 using VContainer;
 using VContainer.Unity;

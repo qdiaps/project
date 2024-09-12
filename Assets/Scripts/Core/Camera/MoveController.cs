@@ -1,5 +1,6 @@
 ﻿using Architecture.FiniteStateMachine.States.Game;
 using Architecture.Model;
+using Architecture.Model.State;
 using Configs;
 using UnityEngine;
 using VContainer;
