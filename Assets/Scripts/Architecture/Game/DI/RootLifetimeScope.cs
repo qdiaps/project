@@ -1,3 +1,5 @@
+using Architecture.Model;
+using Architecture.Model.Level;
 using Architecture.Services.Input;
 using Architecture.Services.Storage;
 using Architecture.Services.Stream;
@@ -18,6 +20,8 @@ namespace Architecture.Game.DI
             RegisterConfigs(builder);
             RegisterServices(builder);
             RegisterData(builder);
+            RegisterModels(builder);
+            RegisterBootstrapper(builder);
         }
 
         private void RegisterConfigs(IContainerBuilder builder)
@@ -43,6 +47,19 @@ namespace Architecture.Game.DI
         {
             builder
                 .Register<GameData>(Lifetime.Singleton);
+        }
+
+        private static void RegisterModels(IContainerBuilder builder)
+        {
+            builder
+                .Register<LevelModel>(Lifetime.Singleton)
+                .As<IModel<LevelData>>();
+        }
+
+        private static void RegisterBootstrapper(IContainerBuilder builder)
+        {
+            builder
+                .RegisterComponentInHierarchy<Bootstrapper>();
         }
     }
 }
