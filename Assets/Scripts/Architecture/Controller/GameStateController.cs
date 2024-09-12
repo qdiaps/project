@@ -7,15 +7,15 @@ namespace Architecture.Controller
 {
     public class GameStateController
     {
-        private readonly GameStateModel _model;
+        private readonly IModel<StateData> _stateModel;
         private readonly GameStateView _view;
         private readonly IPauseReader _pauseReader;
         private readonly IInputControlChanger _controlChanger;
 
-        public GameStateController(GameStateModel model, GameStateView view, IPauseReader pauseReader, 
+        public GameStateController(IModel<StateData> stateModel, GameStateView view, IPauseReader pauseReader, 
             IInputControlChanger controlChanger)
         {
-            _model = model;
+            _stateModel = stateModel;
             _view = view;
             _pauseReader = pauseReader;
             _controlChanger = controlChanger;
@@ -24,20 +24,16 @@ namespace Architecture.Controller
 
         public void SetPause()
         {
-            if (_model.SetState(typeof(Pause)))
-            {
-                _controlChanger.ChangeInputControl(InputControlType.UI);
-                _view.ShowPauseMenu();
-            }
+            _stateModel.Update(new StateData(typeof(Pause)));
+            _controlChanger.ChangeInputControl(InputControlType.UI);
+            _view.ShowPauseMenu();
         }
 
         public void SetPlay()
         {
-            if (_model.SetState(typeof(Play)))
-            {
-                _controlChanger.ChangeInputControl(InputControlType.Gameplay);
-                _view.HidePauseMenu();
-            }
+            _stateModel.Update(new StateData(typeof(Play)));
+            _controlChanger.ChangeInputControl(InputControlType.Gameplay);
+            _view.HidePauseMenu();
         }
 
         private void Init()

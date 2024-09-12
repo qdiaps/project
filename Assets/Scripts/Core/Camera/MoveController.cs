@@ -13,7 +13,7 @@ namespace Core.Camera
         
         private UnityEngine.Camera _camera;
         private GameConfig _config;
-        private GameStateModel _gameState;
+        private IModel<StateData> _gameState;
         private float _pitch;
 
         private void Awake() => 
@@ -23,12 +23,12 @@ namespace Core.Camera
         {
             if (_config == null || _gameState == null)
                 return;
-            if (_config.CameraConfig.CameraCanMove && _gameState.GetState() == typeof(Play))
+            if (_config.CameraConfig.CameraCanMove && _gameState.Read().State == typeof(Play))
                 Move();
         }
 
         [Inject]
-        private void Construct(GameConfig config, GameStateModel gameState)
+        private void Construct(GameConfig config, IModel<StateData> gameState)
         {
             _config = config;
             _gameState = gameState;

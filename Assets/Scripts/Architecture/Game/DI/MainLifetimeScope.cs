@@ -28,7 +28,8 @@ namespace Architecture.Game.DI
         private static void RegisterModels(IContainerBuilder builder)
         {
             builder
-                .Register<GameStateModel>(Lifetime.Singleton);
+                .Register<StateModel>(Lifetime.Singleton)
+                .As<IModel<StateData>>();
         }
 
         private static void RegisterControllers(IContainerBuilder builder)
