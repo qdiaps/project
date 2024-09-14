@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Configs;
+using Core.Markers;
 using NTC.Pool;
 using UnityEngine;
 using VContainer;
@@ -37,13 +38,18 @@ namespace Core.Scan
                 Vector3 direction = (randomPoint - transform.position).normalized;
                 if (Physics.Raycast(transform.position, direction, out RaycastHit hit, _config.ScannerConfig.MaxDistance))
                 {
-                    NightPool.Spawn(_config.PathConfig.ScannerParticle, hit.point, Quaternion.identity)
-                        .DespawnOnComplete();
+                    if (hit.transform.TryGetComponent(out Key key))
+                        SpawnParticle(_config.PathConfig.ScannerKeyParticle, hit.point);
+                    else
+                        SpawnParticle(_config.PathConfig.ScannerDefaultParticle, hit.point);
                     _line.SetPositions(new []{ _player.position, hit.point });
                     yield return new WaitForSeconds(_config.ScannerConfig.TimeSpawn);
                 }
             }
             _line.enabled = false;
         }
+        
+        private void SpawnParticle(ParticleSystem particle, Vector3 position) =>
+            NightPool.Spawn(particle, position, Quaternion.identity).DespawnOnComplete();
     }
 }

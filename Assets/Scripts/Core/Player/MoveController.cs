@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Architecture.Services.Input;
 using Configs;
+using Core.Markers;
 using UnityEngine;
 using VContainer;
 
@@ -18,6 +19,15 @@ namespace Core.Player
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent(out Key key))
+            {
+                Debug.Log("Key found");
+                Destroy(other.gameObject);
+            }
         }
 
         private void OnDestroy()

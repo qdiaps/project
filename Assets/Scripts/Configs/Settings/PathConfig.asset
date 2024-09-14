@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: PathConfig
   m_EditorClassIdentifier: 
   PlayerPrefab: Core/Player
-  ScannerParticle: {fileID: 4082807160917226789, guid: 88ba1009a39d3094d81a227b1ea08767, type: 3}
+  ScannerDefaultParticle: {fileID: 4082807160917226789, guid: 88ba1009a39d3094d81a227b1ea08767, type: 3}
+  ScannerKeyParticle: {fileID: 4082807160917226789, guid: 72beb581b067b5d4bbf39337bccfbf51, type: 3}

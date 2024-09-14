@@ -7,6 +7,7 @@ namespace Configs.Settings
     public class PathConfig : ScriptableObject
     {
 	    public string PlayerPrefab;
-	    public ParticleSystem ScannerParticle;
+	    public ParticleSystem ScannerDefaultParticle;
+	    public ParticleSystem ScannerKeyParticle;
     }
 }
