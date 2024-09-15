@@ -2,6 +2,7 @@ using Architecture.Controller;
 using Architecture.Factory;
 using Architecture.FiniteStateMachine;
 using Architecture.Model;
+using Architecture.Model.Item;
 using Architecture.Model.State;
 using Architecture.View;
 using VContainer;
@@ -33,6 +34,9 @@ namespace Architecture.Game.DI
             builder
                 .Register<StateModel>(Lifetime.Singleton)
                 .As<IModel<StateData>>();
+            builder
+                .Register<ItemModel>(Lifetime.Singleton)
+                .As<IModel<ItemData>>();
         }
 
         private static void RegisterControllers(IContainerBuilder builder)
