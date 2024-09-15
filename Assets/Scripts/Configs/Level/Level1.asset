@@ -18,4 +18,4 @@ MonoBehaviour:
   - {fileID: 2759647793431576355, guid: fbf609c73102ce74abe9fef303c30c33, type: 3}
   - {fileID: 9037451977665612374, guid: f225f12da2f24ee4ca10aa53b4be9037, type: 3}
   - {fileID: 125544759547503074, guid: 71e61b797ed82d243ae0e12358051b83, type: 3}
-  MaxKeys: 3
+  DoorPrefab: {fileID: 3376508132509364392, guid: 2c044b1bc0363234085126241d432d0c, type: 3}

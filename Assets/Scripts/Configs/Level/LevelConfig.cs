@@ -8,5 +8,6 @@ namespace Configs.Level
         public int BuildIndexScene;
         public Transform PlayerSpawnPoint;
         public Transform[] KeySpawnPoints;
+        public GameObject DoorPrefab;
     }
 }
