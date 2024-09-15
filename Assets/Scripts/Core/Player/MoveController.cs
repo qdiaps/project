@@ -21,15 +21,6 @@ namespace Core.Player
             _rigidbody = GetComponent<Rigidbody>();
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.TryGetComponent(out Key key))
-            {
-                Debug.Log("Key found");
-                Destroy(other.gameObject);
-            }
-        }
-
         private void OnDestroy()
         {
             if (_moveInputReader != null)
