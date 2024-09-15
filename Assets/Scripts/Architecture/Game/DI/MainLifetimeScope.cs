@@ -24,6 +24,8 @@ namespace Architecture.Game.DI
         {
             builder
                 .Register<PlayerFactory>(Lifetime.Transient);
+            builder
+                .Register<KeyFactory>(Lifetime.Transient);
         }
 
         private static void RegisterModels(IContainerBuilder builder)
