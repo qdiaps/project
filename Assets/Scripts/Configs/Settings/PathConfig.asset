@@ -16,3 +16,4 @@ MonoBehaviour:
   KeyPrefab: Core/Key
   ScannerDefaultParticle: {fileID: 4082807160917226789, guid: 88ba1009a39d3094d81a227b1ea08767, type: 3}
   ScannerKeyParticle: {fileID: 4082807160917226789, guid: 72beb581b067b5d4bbf39337bccfbf51, type: 3}
+  ScannerDoorParticle: {fileID: 4082807160917226789, guid: a8e9495b5d4b646409f89b351deb137d, type: 3}

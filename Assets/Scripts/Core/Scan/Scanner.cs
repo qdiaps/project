@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Architecture.Services.Door;
 using Configs;
 using Core.Markers;
 using NTC.Pool;
@@ -40,6 +41,8 @@ namespace Core.Scan
                 {
                     if (hit.transform.TryGetComponent(out Key key))
                         SpawnParticle(_config.PathConfig.ScannerKeyParticle, hit.point);
+                    else if (hit.transform.TryGetComponent(out Door door))
+                        SpawnParticle(_config.PathConfig.ScannerDoorParticle, hit.point);
                     else
                         SpawnParticle(_config.PathConfig.ScannerDefaultParticle, hit.point);
                     _line.SetPositions(new []{ _player.position, hit.point });

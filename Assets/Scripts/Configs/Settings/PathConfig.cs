@@ -9,5 +9,6 @@ namespace Configs.Settings
 	    public string KeyPrefab;
 	    public ParticleSystem ScannerDefaultParticle;
 	    public ParticleSystem ScannerKeyParticle;
+	    public ParticleSystem ScannerDoorParticle;
     }
 }
