@@ -1,6 +1,7 @@
 using Architecture.Model;
 using Architecture.Model.Level;
 using Architecture.Services.Input;
+using Architecture.Services.LevelLoad;
 using Architecture.Services.Storage;
 using Architecture.Services.Stream;
 using Configs;
@@ -41,6 +42,9 @@ namespace Architecture.Game.DI
             builder
                 .Register<FileStreamService>(Lifetime.Transient)
                 .As<IStreamService>();
+            builder
+                .Register<LevelLoadService>(Lifetime.Transient)
+                .AsImplementedInterfaces();
         }
 
         private static void RegisterData(IContainerBuilder builder)
