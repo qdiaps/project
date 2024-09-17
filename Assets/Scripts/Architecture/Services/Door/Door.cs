@@ -7,7 +7,7 @@ namespace Architecture.Services.Door
         public void Open()
         {
             GetComponent<BoxCollider>()
-                .isTrigger = true;
+                .enabled = false;
             Debug.Log("Door open");
         }
     }
