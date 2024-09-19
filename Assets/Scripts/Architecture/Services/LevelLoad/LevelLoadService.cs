@@ -19,8 +19,6 @@ namespace Architecture.Services.LevelLoad
         
         public void LoadLevel(int index)
         {
-            if (index == SceneManager.GetActiveScene().buildIndex)
-                return;
             var indexLevel = GetLevelIndex(index);
             if (indexLevel == -1)
                 throw new ArgumentException("index out of range");
