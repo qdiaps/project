@@ -1,5 +1,4 @@
 using Architecture.Factory;
-using Architecture.FiniteStateMachine;
 using Architecture.Model;
 using Architecture.Model.Item;
 using Architecture.Services.Door;
