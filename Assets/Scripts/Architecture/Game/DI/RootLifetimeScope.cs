@@ -9,7 +9,6 @@ using Architecture.Services.Storage;
 using Architecture.Services.Stream;
 using Architecture.View;
 using Configs;
-using Core;
 using UI;
 using UnityEngine;
 using VContainer;
@@ -25,7 +24,6 @@ namespace Architecture.Game.DI
         {
             RegisterConfigs(builder);
             RegisterServices(builder);
-            RegisterData(builder);
             RegisterModels(builder);
             RegisterBootstrapper(builder);
             RegisterUI(builder);
@@ -52,12 +50,6 @@ namespace Architecture.Game.DI
             builder
                 .Register<LevelLoadService>(Lifetime.Transient)
                 .AsImplementedInterfaces();
-        }
-
-        private static void RegisterData(IContainerBuilder builder)
-        {
-            builder
-                .Register<GameData>(Lifetime.Singleton);
         }
 
         private static void RegisterModels(IContainerBuilder builder)
