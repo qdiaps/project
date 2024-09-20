@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4beff43f84634261b2303b1017bc118c, type: 3}
+  m_Name: Level2
+  m_EditorClassIdentifier: 
+  BuildIndexScene: 2
+  PlayerSpawnPoint: {fileID: 2365343341029532425, guid: b3e72c3068b579d418b8e5035b4cc3f7, type: 3}
+  KeySpawnPoints:
+  - {fileID: 5839135982558597623, guid: 01bc73f414d572f479b717d143fd5376, type: 3}
+  - {fileID: 5973588083672094674, guid: 8d95a4fd35c96984fb9348c97c3cb58d, type: 3}
+  - {fileID: 1774635333933695815, guid: 02387dc3fed110e4994478d50c888215, type: 3}
+  - {fileID: 6343588979013660693, guid: 8bc17beb51365794f9cb4029b8ece2ff, type: 3}
+  DoorPrefab: {fileID: 5556347581941710944, guid: d1c96943658a5d44f9f9f1f45902abde, type: 3}

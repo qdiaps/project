@@ -15,6 +15,7 @@ MonoBehaviour:
   PathConfig: {fileID: 11400000, guid: 4bb56b6064bec3a429f992a207de720c, type: 2}
   LevelConfigs:
   - {fileID: 11400000, guid: 0fdc8986ce5d9054cbd0ded961cb6894, type: 2}
+  - {fileID: 11400000, guid: 704c28b67ca5be64faf6003e45807346, type: 2}
   PlayerConfig: {fileID: 11400000, guid: 96b3224b32243d7458ec62bbc96c3843, type: 2}
   CameraConfig: {fileID: 11400000, guid: e11d1343ecf6f1d49b55090b2c5b4dfd, type: 2}
   ScannerConfig: {fileID: 11400000, guid: 4f32ad72c1b24244a875f572855e3c9e, type: 2}
