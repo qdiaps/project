@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Configs;
 using Core.Markers;
+using Core.Player;
 using NTC.Pool;
 using UnityEngine;
 using VContainer;
@@ -44,6 +45,8 @@ namespace Core.Scan
                 {
                     if (hit.transform.TryGetComponent(out Key key))
                         SpawnParticle(_config.PathConfig.ScannerKeyParticle, hit.point);
+                    else if (hit.transform.TryGetComponent(out MoveController player))
+                        continue;
                     else
                         SpawnParticle(_config.PathConfig.ScannerDefaultParticle, hit.point);
                     _line.SetPositions(new []{ _player.position, hit.point });
