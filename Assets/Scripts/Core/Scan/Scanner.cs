@@ -12,28 +12,24 @@ namespace Core.Scan
     [RequireComponent(typeof(LineRenderer))]
     public class Scanner : MonoBehaviour
     {
+        public bool CanScan;
+        
         [SerializeField] private Transform _castPoint;
         [SerializeField] private Transform _player;
         
         private GameConfig _config;
         private ParticleSystem _particle;
         private LineRenderer _line;
-        private bool _canScan = true;
 
         private void Awake() => 
             _line = GetComponent<LineRenderer>();
 
         [Inject]
-        private void Construct(GameConfig config)
-        {
+        private void Construct(GameConfig config) => 
             _config = config;
-        }
 
         public IEnumerator Scan()
         {
-            if (_canScan == false)
-                yield break;
-            _canScan = false;
             _line.enabled = true;
             for (int i = 0; i < _config.ScannerConfig.PointsPerScan; i++)
             {
@@ -53,8 +49,9 @@ namespace Core.Scan
                     yield return new WaitForSeconds(_config.ScannerConfig.TimeSpawn);
                 }
             }
-            _canScan = true;
             _line.enabled = false;
+            if (CanScan)
+                StartCoroutine(Scan());
         }
         
         private void SpawnParticle(ParticleSystem particle, Vector3 position) =>

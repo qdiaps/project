@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cf221ba87e34f15b2eaa169aec387c1, type: 3}
   m_Name: ScannerConfig
   m_EditorClassIdentifier: 
-  PointsPerScan: 75
+  PointsPerScan: 20
   Radius: 1.5
   MaxDistance: 20
   TimeSpawn: 0.003

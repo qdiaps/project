@@ -10,7 +10,8 @@ namespace Architecture.Services.Input
         public event Action<Vector3> OnMove;
         public event Action<Vector3> OnSprintMove;
         public event Action OnJump;
-        public event Action OnScan;
+        public event Action OnStartScan;
+        public event Action OnStopScan;
         public event Action OnPauseEnter;
         public event Action OnPauseExit;
         
@@ -80,7 +81,8 @@ namespace Architecture.Services.Input
         {
             _inputControls.Gameplay.SprintMove.started += _ => SetSprintValue(true);
             _inputControls.Gameplay.SprintMove.canceled += _ => SetSprintValue(false);
-            _inputControls.Gameplay.Scan.performed += _ => Scan();
+            _inputControls.Gameplay.Scan.started += _ => StartScan();
+            _inputControls.Gameplay.Scan.canceled += _ => StopScan();
             _inputControls.Gameplay.Pause.performed += _ => PauseEnter();
         }
 
@@ -92,8 +94,11 @@ namespace Architecture.Services.Input
         private void SetSprintValue(bool value) =>
             _isSprint = value;
         
-        private void Scan() =>
-            OnScan?.Invoke();
+        private void StartScan() =>
+            OnStartScan?.Invoke();
+        
+        private void StopScan() =>
+            OnStopScan?.Invoke();
 
         private void PauseEnter()
         {
