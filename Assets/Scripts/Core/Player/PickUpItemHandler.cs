@@ -11,6 +11,8 @@ namespace Core.Player
 {
     public class PickUpItemHandler : MonoBehaviour
     {
+        [SerializeField] private AudioClip _pickUpSound;
+        
         private IModel<ItemData> _itemModel;
         private int _maxKeyCount;
         private IDoorService _doorService;
@@ -19,6 +21,7 @@ namespace Core.Player
         {
             if (other.TryGetComponent(out Key key))
             {
+                AudioSource.PlayClipAtPoint(_pickUpSound, transform.position);
                 Destroy(other.gameObject);
                 var currentCountKey = _itemModel.Read().KeyData.CurrentCount;
                 _itemModel.Update(new ItemData(new KeyData(++currentCountKey)));
