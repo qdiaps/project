@@ -118,3 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6594200487b4593a0ecbc464654ea64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _openingDoorAudios:
+  - {fileID: 8300000, guid: 0f90b7e7f477b4540913ff42f69a2e0f, type: 3}
+  - {fileID: 8300000, guid: cb0d028adf6016b4f9d0b1723de4f33f, type: 3}
