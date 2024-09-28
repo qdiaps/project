@@ -17,13 +17,13 @@ namespace Architecture.Services.LevelLoad
             _config = config;
         }
         
-        public void LoadLevel(int index)
+        public void LoadLevel(int buildIndexScene)
         {
-            var indexLevel = GetLevelIndex(index);
+            var indexLevel = GetLevelIndex(buildIndexScene);
             if (indexLevel == -1)
                 throw new ArgumentException("index out of range");
             _levelModel.Update(new LevelData(new CurrentLevelData(indexLevel)));
-            SceneManager.LoadScene(index);
+            SceneManager.LoadScene(buildIndexScene);
         }
 
         public void LoadNextLevel()
@@ -35,8 +35,11 @@ namespace Architecture.Services.LevelLoad
                 LoadLevel(_config.LevelConfigs[nextLevelIndex].BuildIndexScene);
         }
 
-        public void LoadLastLevelFromSave() => 
-            LoadLevel(_config.LevelConfigs[0].BuildIndexScene);
+        public void LoadLastLevelFromSave()
+        {
+            var currentLevel = _levelModel.Read().CurrentLevelData.CurrentLevel;
+            LoadLevel(_config.LevelConfigs[currentLevel].BuildIndexScene);
+        }
 
         private int GetLevelIndex(int index)
         {
