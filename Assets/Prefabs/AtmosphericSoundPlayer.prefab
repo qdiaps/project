@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4562972863412859776
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2668718388404651153}
+  - component: {fileID: 8991183120408239631}
+  m_Layer: 0
+  m_Name: AtmosphericSoundPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2668718388404651153
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4562972863412859776}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 727617600289726340}
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8991183120408239631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4562972863412859776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a0cfa5cc7a242aa9c38d878cb4538c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _points: []
+  _sounds:
+  - {fileID: 8300000, guid: 17cf6e51bb7b54246afe6e0ea006c8dd, type: 3}
+  - {fileID: 8300000, guid: 94202e59ba85ba341905bf411ee2e3c0, type: 3}
+  - {fileID: 8300000, guid: 6a1e39cf02f6bf84ca5c66f5f40f470d, type: 3}
+  - {fileID: 8300000, guid: 3036349a261fb6340a785c162daf1d53, type: 3}
+  - {fileID: 8300000, guid: c8f5603ede9f4704d84f755fa789a6bc, type: 3}
+  - {fileID: 8300000, guid: a65bf1d5660559a4eb473344ed1788bd, type: 3}
+  - {fileID: 8300000, guid: 8246ef5bbb598744dad00a5593ac7683, type: 3}
+  - {fileID: 8300000, guid: 290dd54bba00d4a44a57fd57bc135e18, type: 3}
+  - {fileID: 8300000, guid: 7671029d18fd7954bab778276947ca18, type: 3}
+  - {fileID: 8300000, guid: 7451f1761a1b12848a1d92dea6da7725, type: 3}
+  - {fileID: 8300000, guid: 297521f2d7a37db449d4bcd51cb69622, type: 3}
+  - {fileID: 8300000, guid: eadde5d0a76573d4bb1d8a7d34cb2151, type: 3}
+  - {fileID: 8300000, guid: 6bbf0cbde72e0174386621a5ab4992f4, type: 3}
+  _minPlayTime: 12
+  _maxPlayTime: 20
+--- !u!1 &6691298441861441544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 727617600289726340}
+  m_Layer: 0
+  m_Name: Points
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &727617600289726340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6691298441861441544}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2668718388404651153}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
