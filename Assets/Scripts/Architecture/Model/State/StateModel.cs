@@ -23,6 +23,7 @@ namespace Architecture.Model.State
         {
             _fsm.AddState(new Play());
             _fsm.AddState(new Pause());
+            _fsm.AddState(new Settings());
             _fsm.SetState(typeof(Play));
         }
     }

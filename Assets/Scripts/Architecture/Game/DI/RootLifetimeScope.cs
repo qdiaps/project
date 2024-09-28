@@ -76,6 +76,8 @@ namespace Architecture.Game.DI
                 .RegisterComponentInHierarchy<PlaySetter>();
             builder
                 .Register<GameStateController>(Lifetime.Singleton);
+            builder
+                .RegisterComponentInHierarchy<Settings>();
         }
         
         private static void RegisterFsm(IContainerBuilder builder)

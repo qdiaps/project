@@ -28,6 +28,7 @@ namespace Architecture.Controller
             _stateModel.Update(new StateData(typeof(Pause)));
             _controlChanger.ChangeInputControl(InputControlType.UI);
             _view.ShowPauseMenu();
+            _view.HideSettingsMenu();
         }
 
         public void SetPlay()
@@ -35,6 +36,13 @@ namespace Architecture.Controller
             _stateModel.Update(new StateData(typeof(Play)));
             _controlChanger.ChangeInputControl(InputControlType.Gameplay);
             _view.HidePauseMenu();
+        }
+
+        public void SetSettings()
+        {
+            _stateModel.Update(new StateData(typeof(Settings)));
+            _controlChanger.ChangeInputControl(InputControlType.None);
+            _view.ShowSettingsMenu();
         }
 
         private void Init()

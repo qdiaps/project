@@ -38,6 +38,10 @@ namespace Architecture.Services.Input
         {
             switch (type)
             {
+                case InputControlType.None:
+                    _inputControls.UI.Disable();
+                    _inputControls.Gameplay.Disable();
+                    break;
                 case InputControlType.Gameplay:
                     _inputControls.UI.Disable();
                     _inputControls.Gameplay.Enable();
