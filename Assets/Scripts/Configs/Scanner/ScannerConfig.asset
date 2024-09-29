@@ -15,4 +15,4 @@ MonoBehaviour:
   PointsPerScan: 20
   Radius: 1.5
   MaxDistance: 20
-  TimeSpawn: 0.003
+  TimeSpawn: 0.01
