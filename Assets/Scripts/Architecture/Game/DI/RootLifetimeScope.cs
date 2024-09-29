@@ -84,6 +84,8 @@ namespace Architecture.Game.DI
                 .RegisterComponentInHierarchy<Settings>();
             builder
                 .RegisterComponentInHierarchy<ChangerSelectLevel>();
+            builder
+                .RegisterComponentInHierarchy<LoaderSelectLevel>();
         }
         
         private static void RegisterFsm(IContainerBuilder builder)

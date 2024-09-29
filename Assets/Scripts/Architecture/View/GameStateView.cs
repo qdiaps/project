@@ -11,6 +11,7 @@ namespace Architecture.View
         [SerializeField] private TMP_Text _levelName;
         [SerializeField] private TMP_Text _levelComplexity;
         [SerializeField] private TMP_Text _levelCountKeys;
+        [SerializeField] private GameObject _playSelectLevelButton;
 
         private void Awake() => 
             DontDestroyOnLoad(this);
@@ -27,7 +28,7 @@ namespace Architecture.View
         public void HideSettingsMenu() => 
             _settingsMenu.SetActive(false);
 
-        public void UpdateLevelInfo(LevelConfig levelConfig, int levelIndex)
+        public void UpdateLevelInfo(LevelConfig levelConfig, int levelIndex, bool isCompleted)
         {
             _levelName.text = $"Номер уровня: {levelIndex}";
             var coplexity = "нету";
@@ -46,6 +47,7 @@ namespace Architecture.View
 
             _levelComplexity.text = $"Сложность: {coplexity}";
             _levelCountKeys.text = $"Ключей: {levelConfig.KeySpawnPoints.Length}";
+            _playSelectLevelButton.SetActive(isCompleted);
         }
     }
 }

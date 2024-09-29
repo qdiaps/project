@@ -1,5 +1,6 @@
 ﻿using Architecture.FiniteStateMachine.States.Game;
 using Architecture.Model;
+using Architecture.Model.Level;
 using Architecture.Model.SelectLevel;
 using Architecture.Model.State;
 using Architecture.Services.Input;
@@ -12,16 +13,18 @@ namespace Architecture.Controller
     {
         private readonly IModel<StateData> _stateModel;
         private readonly IModel<SelectLevelData> _selectLevelModel;
+        private readonly IModel<LevelData> _levelModel;
         private readonly GameStateView _view;
         private readonly IPauseReader _pauseReader;
         private readonly IInputControlChanger _controlChanger;
         private readonly GameConfig _config;
 
-        public GameStateController(IModel<StateData> stateModel, IModel<SelectLevelData> selectLevelModel, GameStateView view, 
-            IPauseReader pauseReader, IInputControlChanger controlChanger, GameConfig config)
+        public GameStateController(IModel<StateData> stateModel, IModel<SelectLevelData> selectLevelModel, IModel<LevelData> levelModel,
+            GameStateView view, IPauseReader pauseReader, IInputControlChanger controlChanger, GameConfig config)
         {
             _stateModel = stateModel;
             _selectLevelModel = selectLevelModel;
+            _levelModel = levelModel;
             _view = view;
             _pauseReader = pauseReader;
             _controlChanger = controlChanger;
@@ -34,7 +37,9 @@ namespace Architecture.Controller
             _stateModel.Update(new StateData(typeof(Pause)));
             _controlChanger.ChangeInputControl(InputControlType.UI);
             var currentLevel = _selectLevelModel.Read().Current;
-            _view.UpdateLevelInfo(_config.LevelConfigs[currentLevel], ++currentLevel);
+            var lastCompletedLevel = _levelModel.Read().CompletedLevelData.LastCompletedLevel;
+            _view.UpdateLevelInfo(_config.LevelConfigs[currentLevel], ++currentLevel, 
+                (--currentLevel <= ++lastCompletedLevel));
             _view.ShowPauseMenu();
             _view.HideSettingsMenu();
         }
@@ -62,7 +67,9 @@ namespace Architecture.Controller
             else if (currentLevel >= _config.LevelConfigs.Length)
                 currentLevel = 0;
             _selectLevelModel.Update(new SelectLevelData(currentLevel));
-            _view.UpdateLevelInfo(_config.LevelConfigs[currentLevel], ++currentLevel);
+            var lastCompletedLevel = _levelModel.Read().CompletedLevelData.LastCompletedLevel;
+            _view.UpdateLevelInfo(_config.LevelConfigs[currentLevel], ++currentLevel, 
+                (--currentLevel <= ++lastCompletedLevel));
         }
 
         private void Init()
