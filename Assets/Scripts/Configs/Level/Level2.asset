@@ -20,3 +20,4 @@ MonoBehaviour:
   - {fileID: 1774635333933695815, guid: 02387dc3fed110e4994478d50c888215, type: 3}
   - {fileID: 6343588979013660693, guid: 8bc17beb51365794f9cb4029b8ece2ff, type: 3}
   DoorPrefab: {fileID: 5556347581941710944, guid: d1c96943658a5d44f9f9f1f45902abde, type: 3}
+  Complexity: 2
