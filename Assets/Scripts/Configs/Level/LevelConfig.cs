@@ -9,5 +9,6 @@ namespace Configs.Level
         public Transform PlayerSpawnPoint;
         public Transform[] KeySpawnPoints;
         public GameObject DoorPrefab;
+        public ComplexityType Complexity;
     }
 }
