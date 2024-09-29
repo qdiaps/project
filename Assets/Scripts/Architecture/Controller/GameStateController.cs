@@ -53,6 +53,18 @@ namespace Architecture.Controller
             _view.ShowSettingsMenu();
         }
 
+        public void ChangeSelectLevel(int to)
+        {
+            var currentLevel = _selectLevelModel.Read().Current;
+            currentLevel += to;
+            if (currentLevel < 0)
+                currentLevel = _config.LevelConfigs.Length - 1;
+            else if (currentLevel >= _config.LevelConfigs.Length)
+                currentLevel = 0;
+            _selectLevelModel.Update(new SelectLevelData(currentLevel));
+            _view.UpdateLevelInfo(_config.LevelConfigs[currentLevel], ++currentLevel);
+        }
+
         private void Init()
         {
             SettingInput();
