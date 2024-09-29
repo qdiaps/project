@@ -2,6 +2,7 @@ using Architecture.Controller;
 using Architecture.FiniteStateMachine;
 using Architecture.Model;
 using Architecture.Model.Level;
+using Architecture.Model.SelectLevel;
 using Architecture.Model.State;
 using Architecture.Services.Input;
 using Architecture.Services.LevelLoad;
@@ -60,6 +61,9 @@ namespace Architecture.Game.DI
             builder
                 .Register<StateModel>(Lifetime.Singleton)
                 .As<IModel<StateData>>();
+            builder
+                .Register<SelectLevelModel>(Lifetime.Singleton)
+                .As<IModel<SelectLevelData>>();
         }
 
         private static void RegisterBootstrapper(IContainerBuilder builder)
