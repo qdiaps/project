@@ -3,6 +3,7 @@ using Architecture.Model.Item;
 using Architecture.Model.Level;
 using Architecture.Services.Door;
 using Configs;
+using Core.Hint;
 using Core.Markers;
 using UnityEngine;
 using VContainer;
@@ -16,11 +17,13 @@ namespace Core.Player
         private IModel<ItemData> _itemModel;
         private int _maxKeyCount;
         private IDoorService _doorService;
+        private HintWriter _hintWriter;
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out Key key))
             {
+                _hintWriter.Write(HintType.FindKey);
                 AudioSource.PlayClipAtPoint(_pickUpSound, transform.position);
                 Destroy(other.gameObject);
                 var currentCountKey = _itemModel.Read().KeyData.CurrentCount;
@@ -33,12 +36,13 @@ namespace Core.Player
 
         [Inject]
         private void Construct(IModel<ItemData> itemModel, IModel<LevelData> levelModel, GameConfig config, 
-            IDoorService doorService)
+            IDoorService doorService, HintWriter hintWriter)
         {
             _itemModel = itemModel;
             var currentLevel = levelModel.Read().CurrentLevelData.CurrentLevel;
             _maxKeyCount = config.LevelConfigs[currentLevel].KeySpawnPoints.Length;
             _doorService = doorService;
+            _hintWriter = hintWriter;
         }
     }
 }

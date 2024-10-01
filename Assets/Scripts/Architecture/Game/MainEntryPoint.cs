@@ -3,6 +3,7 @@ using Architecture.Factory;
 using Architecture.Model;
 using Architecture.Model.Level;
 using Configs;
+using Core.Hint;
 using UnityEngine;
 using VContainer;
 
@@ -14,14 +15,17 @@ namespace Architecture.Game
         private PlayerFactory _playerFactory;
         private GameConfig _config;
         private KeyFactory _keyFactory;
+        private HintWriter _hintWriter;
 
         [Inject]
-        private void Construct(PlayerFactory playerFactory, GameConfig config, IModel<LevelData> levelModel, KeyFactory keyFactory)
+        private void Construct(PlayerFactory playerFactory, GameConfig config, IModel<LevelData> levelModel, KeyFactory keyFactory,
+            HintWriter hintWriter)
         {
             _playerFactory = playerFactory;
             _config = config;
             _indexCurrentLevel = levelModel.Read().CurrentLevelData.CurrentLevel;
             _keyFactory = keyFactory;
+            _hintWriter = hintWriter;
             Init();
         }
 
@@ -29,6 +33,8 @@ namespace Architecture.Game
         {
             CreatePlayer();
             CreateKeys();
+            _hintWriter.Clear();
+            _hintWriter.Write(HintType.StartedLevel);
         }
 
         private void CreatePlayer() => 

@@ -1,4 +1,5 @@
 ﻿using Configs.Camera;
+using Configs.Hint;
 using Configs.Level;
 using Configs.Player;
 using Configs.Scanner;
@@ -18,6 +19,8 @@ namespace Configs
         public CameraConfig CameraConfig;
         [Header("Scanner")]
         public ScannerConfig ScannerConfig;
+        [Header("Hint")]
+        public HintConfig HintConfig;
 
         private void OnValidate()
         {
@@ -31,6 +34,8 @@ namespace Configs
                 Debug.LogError($"{name}.CameraConfig is missing");
             if (ScannerConfig == null)
                 Debug.LogError($"{name}.ScannerConfig is missing");
+            if (HintConfig == null)
+                Debug.LogError($"{name}.HintConfig is missing");
         }
     }
 }

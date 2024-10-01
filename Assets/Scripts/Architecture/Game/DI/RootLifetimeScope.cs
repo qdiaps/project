@@ -10,6 +10,7 @@ using Architecture.Services.Storage;
 using Architecture.Services.Stream;
 using Architecture.View;
 using Configs;
+using Core.Hint;
 using UI;
 using UnityEngine;
 using VContainer;
@@ -29,6 +30,7 @@ namespace Architecture.Game.DI
             RegisterBootstrapper(builder);
             RegisterUI(builder);
             RegisterFsm(builder);
+            RegisterHintWriter(builder);
         }
 
         private void RegisterConfigs(IContainerBuilder builder)
@@ -71,7 +73,7 @@ namespace Architecture.Game.DI
             builder
                 .RegisterComponentInHierarchy<Bootstrapper>();
         }
-        
+
         private static void RegisterUI(IContainerBuilder builder)
         {
             builder
@@ -87,11 +89,17 @@ namespace Architecture.Game.DI
             builder
                 .RegisterComponentInHierarchy<LoaderSelectLevel>();
         }
-        
+
         private static void RegisterFsm(IContainerBuilder builder)
         {
             builder
                 .Register<Fsm>(Lifetime.Transient);
+        }
+
+        private static void RegisterHintWriter(IContainerBuilder builder)
+        {
+            builder
+                .RegisterComponentInHierarchy<HintWriter>();
         }
     }
 }
