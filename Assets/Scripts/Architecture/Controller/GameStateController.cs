@@ -16,18 +16,16 @@ namespace Architecture.Controller
         private readonly IModel<LevelData> _levelModel;
         private readonly GameStateView _view;
         private readonly IPauseReader _pauseReader;
-        private readonly IInputControlChanger _controlChanger;
         private readonly GameConfig _config;
 
         public GameStateController(IModel<StateData> stateModel, IModel<SelectLevelData> selectLevelModel, IModel<LevelData> levelModel,
-            GameStateView view, IPauseReader pauseReader, IInputControlChanger controlChanger, GameConfig config)
+            GameStateView view, IPauseReader pauseReader, GameConfig config)
         {
             _stateModel = stateModel;
             _selectLevelModel = selectLevelModel;
             _levelModel = levelModel;
             _view = view;
             _pauseReader = pauseReader;
-            _controlChanger = controlChanger;
             _config = config;
             Init();
         }
@@ -35,7 +33,6 @@ namespace Architecture.Controller
         public void SetPause()
         {
             _stateModel.Update(new StateData(typeof(Pause)));
-            _controlChanger.ChangeInputControl(InputControlType.UI);
             var currentLevel = _selectLevelModel.Read().Current;
             var lastCompletedLevel = _levelModel.Read().CompletedLevelData.LastCompletedLevel;
             _view.UpdateLevelInfo(_config.LevelConfigs[currentLevel], ++currentLevel, 
@@ -47,14 +44,12 @@ namespace Architecture.Controller
         public void SetPlay()
         {
             _stateModel.Update(new StateData(typeof(Play)));
-            _controlChanger.ChangeInputControl(InputControlType.Gameplay);
             _view.HidePauseMenu();
         }
 
         public void SetSettings()
         {
             _stateModel.Update(new StateData(typeof(Settings)));
-            _controlChanger.ChangeInputControl(InputControlType.None);
             _view.ShowSettingsMenu();
         }
 
@@ -72,10 +67,8 @@ namespace Architecture.Controller
                 (--currentLevel <= ++lastCompletedLevel));
         }
 
-        private void Init()
-        {
+        private void Init() => 
             SettingInput();
-        }
 
         private void SettingInput()
         {
