@@ -1,10 +1,12 @@
 using Architecture.Controller;
 using Architecture.FiniteStateMachine;
 using Architecture.Model;
+using Architecture.Model.Learning;
 using Architecture.Model.Level;
 using Architecture.Model.SelectLevel;
 using Architecture.Model.State;
 using Architecture.Services.Input;
+using Architecture.Services.Learning;
 using Architecture.Services.LevelLoad;
 using Architecture.Services.Storage;
 using Architecture.Services.Stream;
@@ -31,6 +33,7 @@ namespace Architecture.Game.DI
             RegisterUI(builder);
             RegisterFsm(builder);
             RegisterHintWriter(builder);
+            RegisterLearning(builder);    
         }
 
         private void RegisterConfigs(IContainerBuilder builder)
@@ -66,6 +69,9 @@ namespace Architecture.Game.DI
             builder
                 .Register<SelectLevelModel>(Lifetime.Singleton)
                 .As<IModel<SelectLevelData>>();
+            builder
+                .Register<LearningModel>(Lifetime.Singleton)
+                .As<IModel<LearningData>>();
         }
 
         private static void RegisterBootstrapper(IContainerBuilder builder)
@@ -88,6 +94,8 @@ namespace Architecture.Game.DI
                 .RegisterComponentInHierarchy<ChangerSelectLevel>();
             builder
                 .RegisterComponentInHierarchy<LoaderSelectLevel>();
+            builder
+                .RegisterComponentInHierarchy<LoadLearning>();
         }
 
         private static void RegisterFsm(IContainerBuilder builder)
@@ -100,6 +108,13 @@ namespace Architecture.Game.DI
         {
             builder
                 .RegisterComponentInHierarchy<HintWriter>();
+        }
+
+        private static void RegisterLearning(IContainerBuilder builder)
+        {
+            builder
+                .Register<LearningService>(Lifetime.Transient)
+                .As<ILearningService>();
         }
     }
 }

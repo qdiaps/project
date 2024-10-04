@@ -27,8 +27,7 @@ namespace Architecture.Model.State
             _fsm.AddState(new Play(_inputControlChanger));
             _fsm.AddState(new Pause(_inputControlChanger));
             _fsm.AddState(new Settings());
-            _fsm.AddState(new Learning());
-            _fsm.SetState(typeof(Play));
+            _fsm.AddState(new FiniteStateMachine.States.Game.Learning());
         }
     }
 }

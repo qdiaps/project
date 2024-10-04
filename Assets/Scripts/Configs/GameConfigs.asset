@@ -20,3 +20,4 @@ MonoBehaviour:
   CameraConfig: {fileID: 11400000, guid: e11d1343ecf6f1d49b55090b2c5b4dfd, type: 2}
   ScannerConfig: {fileID: 11400000, guid: 4f32ad72c1b24244a875f572855e3c9e, type: 2}
   HintConfig: {fileID: 11400000, guid: 2c073459ffd3e464385bae7976a6980c, type: 2}
+  LearningConfig: {fileID: 11400000, guid: d9e3ea46169d06840ac550f83764de35, type: 2}

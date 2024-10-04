@@ -2,6 +2,7 @@
 using Architecture.Factory;
 using Architecture.Model;
 using Architecture.Model.Level;
+using Architecture.Services.Input;
 using Configs;
 using Core.Hint;
 using UnityEngine;
@@ -16,16 +17,18 @@ namespace Architecture.Game
         private GameConfig _config;
         private KeyFactory _keyFactory;
         private HintWriter _hintWriter;
+        private IInputControlChanger _inputControlChanger;
 
         [Inject]
         private void Construct(PlayerFactory playerFactory, GameConfig config, IModel<LevelData> levelModel, KeyFactory keyFactory,
-            HintWriter hintWriter)
+            HintWriter hintWriter, IInputControlChanger inputControlChanger)
         {
             _playerFactory = playerFactory;
             _config = config;
             _indexCurrentLevel = levelModel.Read().CurrentLevelData.CurrentLevel;
             _keyFactory = keyFactory;
             _hintWriter = hintWriter;
+            _inputControlChanger = inputControlChanger;
             Init();
         }
 

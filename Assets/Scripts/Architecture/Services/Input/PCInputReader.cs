@@ -5,7 +5,7 @@ using VContainer.Unity;
 namespace Architecture.Services.Input
 {
     public class PCInputReader : IJumpInputReader, IMoveInputReader, IScanInputReader, IPauseReader, IInputControlChanger,
-        IFixedTickable, IStartable, IDisposable
+        IFixedTickable, IDisposable
     {
         public event Action<Vector3> OnMove;
         public event Action<Vector3> OnSprintMove;
@@ -15,13 +15,13 @@ namespace Architecture.Services.Input
         public event Action OnPauseEnter;
         public event Action OnPauseExit;
         
-        private InputControls _inputControls;
+        private readonly InputControls _inputControls;
+        
         private bool _isSprint;
 
-        public void Start()
+        public PCInputReader()
         {
             _inputControls = new InputControls();
-            _inputControls.Gameplay.Enable();
             RegisterInputAction();
         }
 

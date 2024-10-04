@@ -53,6 +53,13 @@ namespace Architecture.Controller
             _view.ShowSettingsMenu();
         }
 
+        public void SetLearning()
+        {
+            _stateModel.Update(new StateData(typeof(Learning)));
+            _view.HidePauseMenu();
+            _view.HideSettingsMenu();
+        }
+
         public void ChangeSelectLevel(int to)
         {
             var currentLevel = _selectLevelModel.Read().Current;

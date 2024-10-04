@@ -11,6 +11,7 @@ namespace UI
             var path = CreatePath(typeof(LevelData).ToString());
             if (File.Exists(path))
                 File.Delete(path);
+            PlayerPrefs.DeleteAll();
         }
         
         private string CreatePath(string name) =>
