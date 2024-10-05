@@ -1,9 +1,7 @@
-using Architecture.Controller;
 using Architecture.Factory;
-using Architecture.FiniteStateMachine;
 using Architecture.Model;
-using Architecture.Model.State;
-using Architecture.View;
+using Architecture.Model.Item;
+using Architecture.Services.Door;
 using VContainer;
 using VContainer.Unity;
 
@@ -15,40 +13,31 @@ namespace Architecture.Game.DI
         {
             RegisterFactories(builder);
             RegisterModels(builder);
-            RegisterControllers(builder);
-            RegisterViews(builder);
-            RegisterFsm(builder);
+            RegisterServices(builder);
         }
 
         private static void RegisterFactories(IContainerBuilder builder)
         {
             builder
                 .Register<PlayerFactory>(Lifetime.Transient);
+            builder
+                .Register<KeyFactory>(Lifetime.Transient);
+            builder
+                .Register<DoorFactory>(Lifetime.Transient);
         }
 
         private static void RegisterModels(IContainerBuilder builder)
         {
             builder
-                .Register<StateModel>(Lifetime.Singleton)
-                .As<IModel<StateData>>();
+                .Register<ItemModel>(Lifetime.Singleton)
+                .As<IModel<ItemData>>();
         }
 
-        private static void RegisterControllers(IContainerBuilder builder)
+        private static void RegisterServices(IContainerBuilder builder)
         {
             builder
-                .Register<GameStateController>(Lifetime.Singleton);
-        }
-
-        private static void RegisterViews(IContainerBuilder builder)
-        {
-            builder
-                .RegisterComponentInHierarchy<GameStateView>();
-        }
-
-        private static void RegisterFsm(IContainerBuilder builder)
-        {
-            builder
-                .Register<Fsm>(Lifetime.Transient);
+                .Register<DoorService>(Lifetime.Singleton)
+                .AsImplementedInterfaces();
         }
     }
 }

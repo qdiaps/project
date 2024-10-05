@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WalkSpeed: 5
   MaxVelocityChange: 10
-  SprintSpeed: 9
+  SprintSpeed: 8
   JumpPower: 5
-  CheckGroundRayDistance: 0.6
+  JumpCooldown: 0.3
+  CheckGroundRayDistance: 0.8

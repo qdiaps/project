@@ -13,17 +13,27 @@ namespace Core.Scan
         private void Awake() => 
             _scanner = GetComponent<Scanner>();
 
-        private void OnDestroy() => 
-            _inputReader.OnScan -= Scan;
+        private void OnDestroy()
+        {
+            _inputReader.OnStartScan -= StartScan;
+            _inputReader.OnStopScan -= StopScan;
+        }
 
         [Inject]
         private void Construct(IScanInputReader inputReader)
         {
             _inputReader = inputReader;
-            _inputReader.OnScan += Scan;
+            _inputReader.OnStartScan += StartScan;
+            _inputReader.OnStopScan += StopScan;
         }
 
-        private void Scan() => 
+        private void StartScan()
+        {
+            _scanner.CanScan = true;
             StartCoroutine(_scanner.Scan());
+        }
+        
+        private void StopScan() =>
+            _scanner.CanScan = false;
     }
 }

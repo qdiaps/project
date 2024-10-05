@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Configs.Settings
 {
@@ -7,6 +6,8 @@ namespace Configs.Settings
     public class PathConfig : ScriptableObject
     {
 	    public string PlayerPrefab;
-	    public ParticleSystem ScannerParticle;
+	    public string KeyPrefab;
+	    public ParticleSystem ScannerDefaultParticle;
+	    public ParticleSystem ScannerKeyParticle;
     }
 }

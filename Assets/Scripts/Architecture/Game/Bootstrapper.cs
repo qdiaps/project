@@ -1,34 +1,46 @@
-﻿using Architecture.Model;
-using Architecture.Model.Level;
+﻿using Architecture.Controller;
+using Architecture.Services.Learning;
+using Architecture.Services.LevelLoad;
 using Configs;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using VContainer;
 
 namespace Architecture.Game
 {
     public class Bootstrapper : MonoBehaviour
     {
-        private IModel<LevelData> _modelLevel;
+        private ILevelLoadService _levelLoadService;
+        private ILearningService _learningService;
+        private GameStateController _controller;
         private GameConfig _config;
 
-        private void Awake()
-        {
+        private void Awake() => 
             DontDestroyOnLoad(this);
-        }
 
         [Inject]
-        private void Construct(IModel<LevelData> modelLevel, GameConfig config)
+        private void Construct(ILevelLoadService levelLoadService, ILearningService learningService, GameStateController controller,
+            GameConfig config)
         {
+            _levelLoadService = levelLoadService;
+            _learningService = learningService;
+            _controller = controller;
             _config = config;
-            _modelLevel = modelLevel;
-            LoadLevel();
+            if (CheckLearning())
+            {
+                _controller.SetPlay();
+                LoadLevel();
+            }
         }
 
-        private void LoadLevel()
+        private bool CheckLearning()
         {
-            var currentLevelIndex = _modelLevel.Read().CurrentLevelData.CurrentLevel;
-            SceneManager.LoadScene(_config.LevelConfigs[currentLevelIndex].BuildIndexScene);
+            if (PlayerPrefs.HasKey(_config.LearningConfig.PathToSave))
+                return true;
+            _learningService.Setup();
+            return false;
         }
+
+        private void LoadLevel() => 
+            _levelLoadService.LoadLastLevelFromSave();
     }
 }

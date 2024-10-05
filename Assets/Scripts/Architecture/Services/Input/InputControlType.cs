@@ -2,6 +2,7 @@
 {
     public enum InputControlType
     {
+        None,
         Gameplay,
         UI
     }

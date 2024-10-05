@@ -9,16 +9,17 @@ namespace Core.Player
     [RequireComponent(typeof(Rigidbody))]
     public class MoveController : MonoBehaviour
     {
+        [SerializeField] private AudioClip _moveAudio;
+        
         private IJumpInputReader _jumpInputReader;
         private IMoveInputReader _moveInputReader;
         private GameConfig _config;
         private Rigidbody _rigidbody;
         private bool _isJumping;
+        private bool _isMoveAudio = true;
 
-        private void Awake()
-        {
+        private void Awake() => 
             _rigidbody = GetComponent<Rigidbody>();
-        }
 
         private void OnDestroy()
         {
@@ -41,11 +42,9 @@ namespace Core.Player
             Init();
         }
 
-        private void Init()
-        {
+        private void Init() => 
             SettingInput();
-        }
-        
+
         private void SettingInput()
         {
             _moveInputReader.OnMove += Move;
@@ -69,6 +68,18 @@ namespace Core.Player
                 _config.PlayerConfig.MaxVelocityChange);
             velocityChange.y = 0;
             _rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
+            if (_rigidbody.velocity.x != 0)
+                StartCoroutine(PlaySoundMove());
+        }
+
+        private IEnumerator PlaySoundMove()
+        {
+            if (_isMoveAudio == false)
+                yield break;
+            _isMoveAudio = false;
+            AudioSource.PlayClipAtPoint(_moveAudio, transform.position);
+            yield return new WaitForSeconds(_moveAudio.length);
+            _isMoveAudio = true;
         }
 
         private void Jump()

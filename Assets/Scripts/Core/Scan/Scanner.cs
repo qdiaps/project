@@ -1,5 +1,8 @@
 ﻿using System.Collections;
 using Configs;
+using Core.Markers;
+using Core.Player;
+using Core.Win;
 using NTC.Pool;
 using UnityEngine;
 using VContainer;
@@ -10,6 +13,8 @@ namespace Core.Scan
     [RequireComponent(typeof(LineRenderer))]
     public class Scanner : MonoBehaviour
     {
+        public bool CanScan;
+        
         [SerializeField] private Transform _castPoint;
         [SerializeField] private Transform _player;
         
@@ -21,10 +26,8 @@ namespace Core.Scan
             _line = GetComponent<LineRenderer>();
 
         [Inject]
-        private void Construct(GameConfig config)
-        {
+        private void Construct(GameConfig config) => 
             _config = config;
-        }
 
         public IEnumerator Scan()
         {
@@ -37,13 +40,24 @@ namespace Core.Scan
                 Vector3 direction = (randomPoint - transform.position).normalized;
                 if (Physics.Raycast(transform.position, direction, out RaycastHit hit, _config.ScannerConfig.MaxDistance))
                 {
-                    NightPool.Spawn(_config.PathConfig.ScannerParticle, hit.point, Quaternion.identity)
-                        .DespawnOnComplete();
+                    if (hit.transform.TryGetComponent(out Key key))
+                        SpawnParticle(_config.PathConfig.ScannerKeyParticle, hit.point);
+                    else if (hit.transform.TryGetComponent(out MoveController player))
+                        continue;
+                    else if (hit.transform.TryGetComponent(out WinGameHandler win))
+                        continue;
+                    else
+                        SpawnParticle(_config.PathConfig.ScannerDefaultParticle, hit.point);
                     _line.SetPositions(new []{ _player.position, hit.point });
                     yield return new WaitForSeconds(_config.ScannerConfig.TimeSpawn);
                 }
             }
             _line.enabled = false;
+            if (CanScan)
+                StartCoroutine(Scan());
         }
+        
+        private void SpawnParticle(ParticleSystem particle, Vector3 position) =>
+            NightPool.Spawn(particle, position, Quaternion.identity).DespawnOnComplete();
     }
 }

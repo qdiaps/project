@@ -1,10 +1,19 @@
+using Architecture.Controller;
+using Architecture.FiniteStateMachine;
 using Architecture.Model;
+using Architecture.Model.Learning;
 using Architecture.Model.Level;
+using Architecture.Model.SelectLevel;
+using Architecture.Model.State;
 using Architecture.Services.Input;
+using Architecture.Services.Learning;
+using Architecture.Services.LevelLoad;
 using Architecture.Services.Storage;
 using Architecture.Services.Stream;
+using Architecture.View;
 using Configs;
-using Core;
+using Core.Hint;
+using UI;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -19,9 +28,12 @@ namespace Architecture.Game.DI
         {
             RegisterConfigs(builder);
             RegisterServices(builder);
-            RegisterData(builder);
             RegisterModels(builder);
             RegisterBootstrapper(builder);
+            RegisterUI(builder);
+            RegisterFsm(builder);
+            RegisterHintWriter(builder);
+            RegisterLearning(builder);    
         }
 
         private void RegisterConfigs(IContainerBuilder builder)
@@ -41,12 +53,9 @@ namespace Architecture.Game.DI
             builder
                 .Register<FileStreamService>(Lifetime.Transient)
                 .As<IStreamService>();
-        }
-
-        private static void RegisterData(IContainerBuilder builder)
-        {
             builder
-                .Register<GameData>(Lifetime.Singleton);
+                .Register<LevelLoadService>(Lifetime.Transient)
+                .AsImplementedInterfaces();
         }
 
         private static void RegisterModels(IContainerBuilder builder)
@@ -54,12 +63,58 @@ namespace Architecture.Game.DI
             builder
                 .Register<LevelModel>(Lifetime.Singleton)
                 .As<IModel<LevelData>>();
+            builder
+                .Register<StateModel>(Lifetime.Singleton)
+                .As<IModel<StateData>>();
+            builder
+                .Register<SelectLevelModel>(Lifetime.Singleton)
+                .As<IModel<SelectLevelData>>();
+            builder
+                .Register<LearningModel>(Lifetime.Singleton)
+                .As<IModel<LearningData>>();
         }
 
         private static void RegisterBootstrapper(IContainerBuilder builder)
         {
             builder
                 .RegisterComponentInHierarchy<Bootstrapper>();
+        }
+
+        private static void RegisterUI(IContainerBuilder builder)
+        {
+            builder
+                .RegisterComponentInHierarchy<GameStateView>();
+            builder
+                .RegisterComponentInHierarchy<PlaySetter>();
+            builder
+                .Register<GameStateController>(Lifetime.Singleton);
+            builder
+                .RegisterComponentInHierarchy<Settings>();
+            builder
+                .RegisterComponentInHierarchy<ChangerSelectLevel>();
+            builder
+                .RegisterComponentInHierarchy<LoaderSelectLevel>();
+            builder
+                .RegisterComponentInHierarchy<LoadLearning>();
+        }
+
+        private static void RegisterFsm(IContainerBuilder builder)
+        {
+            builder
+                .Register<Fsm>(Lifetime.Transient);
+        }
+
+        private static void RegisterHintWriter(IContainerBuilder builder)
+        {
+            builder
+                .RegisterComponentInHierarchy<HintWriter>();
+        }
+
+        private static void RegisterLearning(IContainerBuilder builder)
+        {
+            builder
+                .Register<LearningService>(Lifetime.Transient)
+                .As<ILearningService>();
         }
     }
 }

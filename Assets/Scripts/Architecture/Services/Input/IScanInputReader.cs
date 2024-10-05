@@ -4,6 +4,7 @@ namespace Architecture.Services.Input
 {
     public interface IScanInputReader
     {
-        event Action OnScan;
+        event Action OnStartScan;
+        event Action OnStopScan;
     }
 }

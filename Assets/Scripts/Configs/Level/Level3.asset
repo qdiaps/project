@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4beff43f84634261b2303b1017bc118c, type: 3}
+  m_Name: Level3
+  m_EditorClassIdentifier: 
+  BuildIndexScene: 4
+  PlayerSpawnPoint: {fileID: 8542194839073146292, guid: 3e647d16e7cf1614a9edbd62fcf58e44, type: 3}
+  KeySpawnPoints:
+  - {fileID: 5432660138256326195, guid: 070474de502b45d4a91a541089e57571, type: 3}
+  - {fileID: 8371709664443936722, guid: ab4ab03418db30049abbaacabe5a5754, type: 3}
+  - {fileID: 8112935527509829233, guid: 00c7fcb6a3bd41f44b540ead8efda095, type: 3}
+  - {fileID: 4021086326057618944, guid: 8149a01880fca7247a37ce264d336c5c, type: 3}
+  - {fileID: 3085953470418376054, guid: 7f8a8adfece77d243bcc5299686600e3, type: 3}
+  - {fileID: 8776843904394323574, guid: 9c608a06a8b1b5d48a879a4be0a96b9a, type: 3}
+  DoorPrefab: {fileID: 9187374294612814655, guid: b6c7281070655b14abd05c6e08e5257b, type: 3}
+  Complexity: 3
